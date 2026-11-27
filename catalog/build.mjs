@@ -4,7 +4,7 @@ import { site, categories, products, gallery } from './data.mjs';
 
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const wa = (t) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t)}`;
-const logo = readFileSync(new URL('./assets/sunstar-logo.svg', import.meta.url), 'utf8').replace('<svg ', '<svg class="logo__mark" aria-hidden="true" ');
+const logo = '<img class="logo__seal" src="assets/sunstar-seal.webp" alt="" width="44" height="44"><span class="logo__name">Sunstar</span>';
 const catName = Object.fromEntries(categories.map((c) => [c.id, c.name]));
 const tick = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 8.2l2 2 4-4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const icon = {
@@ -69,7 +69,7 @@ const html = `<!doctype html>
 <title>Sunstar Product Catalog — Platform, Floor, Crane, Precision &amp; Livestock Scales</title>
 <meta name="description" content="Sunstar weighing instruments: platform, floor, tabletop, price computing, precision, crane and livestock scales. Capacity and accuracy for every model. Price on WhatsApp.">
 <meta name="theme-color" content="#1E3A8A">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png">
 <meta property="og:title" content="Sunstar Product Catalog">
 <meta property="og:description" content="Weighing instruments for every industry, from laboratory balances to heavy-duty industrial scales.">
 <meta property="og:image" content="assets/og.jpg">

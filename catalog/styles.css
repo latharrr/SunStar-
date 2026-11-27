@@ -173,3 +173,12 @@ svg { width: 1em; height: 1em; flex: none; }
 .photo-grid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
 .photo-grid figcaption { padding: 12px 14px; font-size: 14px; color: var(--body); }
 @media (max-width: 760px) { .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .photo-grid figcaption { font-size: 13px; } }
+
+/* Sunstar seal logo */
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo__seal{width:44px;height:44px;flex:none}
+.logo--sm .logo__seal{width:32px;height:32px}
+.logo__name{font-weight:700;font-size:20px;letter-spacing:-.02em;color:#1E2C5F}
+.hero .logo,.logo:not(.logo--sm){flex-direction:column;gap:12px}
+.hero .logo__seal,.logo:not(.logo--sm) .logo__seal{width:96px;height:96px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.25))}
+.hero .logo__name,.logo:not(.logo--sm) .logo__name{color:#fff;font-size:28px}

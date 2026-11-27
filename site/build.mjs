@@ -76,12 +76,14 @@ ${withAsk ? p.ask.map((k) => `        <tr><th scope="row">${esc(k)}</th><td clas
       </table>`;
 };
 
-const tile = (r, p) => `<li class="tile" data-cat="${p.cat}">
-        <a class="tile__link" href="${r}products/${p.slug}/">
-          <div class="tile__img">${shot(r, p, { sizes: '(max-width: 760px) 80vw, (max-width: 1100px) 40vw, 28vw' })}</div>
-          <h3>${esc(p.name)}</h3>
-          <p class="tile__meta">${esc(catBy[p.cat].name)}${capOf(p) ? (capOf(p).includes('/') ? `, ${esc(capOf(p))}` : `, up to ${esc(capOf(p))}`) : ''}</p>
-        </a>
+const tile = (r, p) => `<li class="tile pcard" data-cat="${p.cat}">
+        <a class="pcard__img" href="${r}products/${p.slug}/" tabindex="-1" aria-hidden="true">${shot(r, p, { sizes: '(max-width: 760px) 80vw, (max-width: 1100px) 40vw, 26vw' })}</a>
+        <div class="pcard__body">
+          <h3><a href="${r}products/${p.slug}/">${esc(p.model || p.name)}</a></h3>
+          <p class="pcard__sub">${esc(p.model ? p.name.replace(p.model + ' ', '') : catBy[p.cat].name)}</p>
+          ${capOf(p) ? `<p class="pcard__cap">${capOf(p).includes('/') ? esc(capOf(p)) : `Up to ${esc(capOf(p))}`}</p>` : ''}
+          <div class="pcard__cta"><a class="btn btn--sm" href="${waProduct(p.name)}">Get price</a><a class="textlink textlink--chev" href="${r}products/${p.slug}/">Learn more</a></div>
+        </div>
       </li>`;
 
 const typeList = (c) => `<ul class="types">
@@ -129,7 +131,7 @@ const business = {
   name: site.name,
   url: site.domain + '/',
   image: site.domain + '/assets/og.jpg',
-  logo: site.domain + '/assets/favicon.svg',
+  logo: site.domain + '/assets/sunstar-seal.png',
   telephone: site.phoneE164,
   foundingDate: String(site.founded),
   founder: { '@type': 'Person', name: site.founder },
@@ -172,8 +174,8 @@ function page({ path, title, desc, body, schema = [], crumbs, home = false, ogIm
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${urlOf(path)}">
-<meta name="theme-color" content="#F2600F">
-<link rel="icon" href="${r}assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F5F5F7">
+<link rel="icon" href="${r}assets/favicon.png" type="image/png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${esc(site.name)}">
 <meta property="og:locale" content="en_IN">
@@ -192,7 +194,7 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home">${LOGO}<span class="wordmark__sub">Systems</span></a>
+    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="40" height="40"><span class="wordmark__name">Sunstar <span>Systems</span></span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <ul>
@@ -209,7 +211,7 @@ ${body(r)}
 <footer class="site-footer">
   <div class="wrap footer__grid">
     <div>
-      <p class="wordmark">${LOGO}<span class="wordmark__sub">Systems</span></p>
+      <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="40" height="40"><span class="wordmark__name">Sunstar <span>Systems</span></span></p>
       <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Supplied across India from Bahadurgarh, Haryana.</p>
     </div>
     <div>
@@ -241,60 +243,72 @@ ${body(r)}
 // ---------- pages ----------
 const hero = prodBy['ss-30'];
 const featured = ['ss-30', 'stainless-tabletop', 'sst-30', 'ss-pf100'].map((s) => prodBy[s]);
-const PLATE_TONE = { 'bg-cream': 'tone-steel', 'bg-soft': 'tone-white', 'bg-charcoal': 'tone-dark', 'bg-orange': 'tone-orange' };
+const PLATE_TONE = { 'bg-cream': 'tone-plain', 'bg-soft': 'tone-plain', 'bg-charcoal': 'tone-plain', 'bg-orange': 'tone-plain' };
 
-// HOME: logo + details first, then products, then photos (no product in the hero)
+// HOME: logo + company details first (no product), then products, then photos
+const STRIP = [
+  ['tabletop-scales', 'Tabletop', 'ss-30'], ['price-computing-scales', 'Price computing', 'sst-30'], ['platform-scales', 'Platform', 'ss-pf100'],
+  ['platform-scales', 'Floor', 'ss-fs500'], ['special-scales', 'Crane', 'ss-cs1000'], ['jewellery-scales', 'Precision', null],
+  ['special-scales', 'Livestock', null], ['weighbridges', 'Weighbridges', null],
+];
 page({
   path: '',
   home: true,
   title: 'Sunstar Systems — Weighing Scales & Weighbridges, Bahadurgarh',
-  desc: 'Digital, price computing and platform weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
+  desc: 'Digital, price computing, platform, floor and crane weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
   schema: [faqLd(faqs.common)],
   body: (r) => `
-<section class="intro" aria-labelledby="hero-title">
-  <div class="wrap intro__in">
-    <div class="intro__logo">${LOGO.replace('class="logo-svg"', 'class="logo-svg logo-svg--hero"')}<span>Systems, since ${site.founded}</span></div>
-    <h1 id="hero-title">Digital weighing scales, made and serviced in Bahadurgarh.</h1>
-    <p class="lede">Tabletop, price computing, platform, floor and crane scales, weighbridges and load cells. Accurate, built to last and fairly priced, with delivery to every state.</p>
-    <div class="actions">
-      <a class="btn" href="${waGeneral}">Get today’s price</a>
-      <a class="btn btn--line" href="#products-title">See the products</a>
+<section class="store-hero" aria-labelledby="hero-title">
+  <div class="wrap store-hero__in">
+    <div class="store-hero__copy">
+      <img class="store-hero__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
+      <h1 id="hero-title">Weighing scales for shops, factories and trucks.</h1>
+      <p class="lede">Made, supplied and serviced in Bahadurgarh since ${site.founded}. Rated ${site.rating.value} on ${site.rating.source}. Delivered to every state.</p>
     </div>
-    <dl class="intro__facts">
-      <div><dt>Since</dt><dd>${site.founded}</dd></div>
-      <div><dt>Rating</dt><dd>${site.rating.value} on ${site.rating.source}</dd></div>
-      <div><dt>Supply</dt><dd>All India</dd></div>
-      <div><dt>Shop</dt><dd>Vivekanand Nagar, Bahadurgarh</dd></div>
-    </dl>
+    <aside class="help-card" aria-label="Talk to Sunstar">
+      <p class="help-card__title">Need help choosing a scale?</p>
+      <p>Tell us what you weigh. We reply with the right model and today’s price.</p>
+      <a class="btn" href="${waGeneral}">Chat on WhatsApp</a>
+      <a class="textlink textlink--chev" href="${tel}">Call ${esc(site.phoneDisplay)}</a>
+    </aside>
   </div>
+  <nav class="wrap strip" aria-label="Shop by category">
+    <ul>
+      ${STRIP.map(([slug, label, prod]) => { const p = prod && prodBy[prod]; return `<li><a href="${r}${slug}/"><span class="strip__img">${p ? `<img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" loading="lazy" decoding="async">` : `<span class="strip__ph" aria-hidden="true">${esc(label.slice(0, 1))}</span>`}</span><span class="strip__label">${esc(label)}</span></a></li>`; }).join('\n      ')}
+    </ul>
+  </nav>
 </section>
 
-<section class="band catalogue" id="catalogue" aria-labelledby="products-title">
+<section class="band lineup" id="catalogue" aria-labelledby="products-title">
   <div class="wrap">
-    <div class="band__head"><h2 id="products-title" class="h2">Products</h2><a class="textlink" href="${r}products/">Browse by family</a></div>
-    <ul class="fam">
-      ${categories.slice(0, 3).map((c) => { const p = prodBy[c.hero]; return `<li><a href="${r}${c.slug}/">
-        <div class="fam__img ${PLATE_TONE[c.plate]}">${shot(r, p, { sizes: '(max-width: 760px) 70vw, 24vw' })}</div>
-        <h3>${esc(c.name)}</h3><p>${esc(c.range)}</p></a></li>`; }).join('\n      ')}
-      <li><a href="${r}weighbridges/">
-        <div class="fam__img tone-orange fam__img--type"><span class="disp disp--lg">${readout('60.00', { label: '60 tonnes' })}<span class="disp__unit">t</span></span></div>
-        <h3>Weighbridges &amp; load cells</h3><p>Pit, pitless and mobile</p></a></li>
-    </ul>
-    <h3 class="h3 grid__title">All products</h3>
+    <h2 id="products-title" class="display">Explore the line-up.</h2>
+    <div class="chips" role="group" aria-label="Filter by family">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All products</button>
+      ${categories.filter((c) => products.some((p) => p.cat === c.slug)).map((c) => `<button class="chip" type="button" data-filter="${c.slug}" aria-pressed="false">${esc(c.short)}</button>`).join('\n      ')}
+    </div>
     <ul class="grid">
       ${products.map((p) => tile(r, p)).join('\n      ')}
     </ul>
-    <h3 class="more__title">Also supplied to order</h3>
-    <ul class="more">
-      ${categories.filter((c) => !c.hero).map((c) => `<li><a href="${r}${c.slug}/">${esc(c.name)}</a></li>`).join('\n      ')}
+    <p class="lineup__more">Also supplied to order: ${categories.filter((c) => !products.some((p) => p.cat === c.slug)).map((c) => `<a class="textlink" href="${r}${c.slug}/">${esc(c.name.toLowerCase())}</a>`).join(', ')}.</p>
+  </div>
+</section>
+
+<section class="band why" aria-labelledby="why-title">
+  <div class="wrap">
+    <h2 id="why-title" class="display">Why buy from Sunstar.</h2>
+    <ul class="rail">
+      <li class="why-card"><p class="why-card__k">Price</p><h3>Today’s price on WhatsApp, the same day.</h3><p>Send the model or the weight you need. No forms, no waiting.</p></li>
+      <li class="why-card"><p class="why-card__k">Delivery</p><h3>Dispatched to every state.</h3><p>From Delhi NCR to South India, the North East and Jammu &amp; Kashmir.</p></li>
+      <li class="why-card"><p class="why-card__k">Service</p><h3>Installation, calibration and repair.</h3><p>Spare load cells and indicators in stock. Service for all makes.</p></li>
+      <li class="why-card"><p class="why-card__k">Since ${site.founded}</p><h3>${year - site.founded} years in Bahadurgarh.</h3><p>One shop in Vivekanand Nagar, trusted by shops, factories and brands.</p></li>
     </ul>
   </div>
 </section>
 
-<section class="band gallery-band" aria-labelledby="photos-title">
+<section class="band photos" aria-labelledby="photos-title">
   <div class="wrap">
-    <div class="band__head"><h2 id="photos-title" class="h2">Photos</h2><p class="note">From our shop and studio in Bahadurgarh</p></div>
-    <ul class="gallery">
+    <h2 id="photos-title" class="display">Inside Sunstar.</h2>
+    <ul class="rail rail--photos">
       ${gallery.map((g) => `<li><figure><img src="${r}assets/gallery/${g.file}.webp" width="1000" height="1000" alt="${esc(g.caption)}" loading="lazy" decoding="async"><figcaption>${esc(g.caption)}</figcaption></figure></li>`).join('\n      ')}
     </ul>
   </div>
@@ -304,14 +318,7 @@ page({
   <div class="wrap trust__in">
     <p>Supplied to businesses including</p>
     <ul class="logos">${site.clients.map((c) => `<li class="${c.confirmed ? '' : 'is-ph'}">${c.confirmed ? esc(c.name) : 'Client logo'}</li>`).join('')}</ul>
-    <a class="textlink" href="${r}clients/">Clients and industries</a>
-  </div>
-</section>
-
-<section class="band band--tight walk" aria-label="3D walkthrough">
-  <div class="wrap walk__in">
-    <p>Prefer to explore? Open the interactive 3D walkthrough of the Sunstar range.</p>
-    <a class="btn btn--line" href="${r}experience/">Open 3D walkthrough</a>
+    <a class="textlink textlink--chev" href="${r}clients/">Clients and industries</a>
   </div>
 </section>
 
@@ -404,11 +411,10 @@ for (const p of products) {
     <div class="plate__text">
       <p class="plate__cat">${esc(c.name)}</p>
       <h1 class="plate__name plate__name--page" id="p-title">${esc(p.name)}</h1>
-      ${capReadout(capOf(p))}
       <p class="plate__desc">${esc(p.desc)}</p>
       ${plateRow(p)}
       ${specTable(p)}
-      <div class="actions"><a class="btn${p.plate === 'bg-orange' ? ' btn--ink' : ''}" href="${waProduct(p.name)}">Get today’s price</a><a class="textlink" href="${tel}">Call ${esc(site.phoneDisplay)}</a></div>
+      <div class="actions"><a class="btn${''}" href="${waProduct(p.name)}">Get today’s price</a><a class="textlink" href="${tel}">Call ${esc(site.phoneDisplay)}</a></div>
     </div>
   </div>
 </section>
