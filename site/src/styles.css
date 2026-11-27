@@ -528,3 +528,30 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bot__nudge-x { border: 0; background: none; color: var(--muted); font-size: 20px; line-height: 1; padding: 8px 10px; }
 @keyframes nudgeIn { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .bot__nudge { animation: none; } }
+
+/* ---------- Image polish ---------- */
+/* Product stage: soft studio light, a floor shadow and a lift on hover */
+.pcard__img, .plate__media, .about__media, .ind-cards__img {
+  background: radial-gradient(120% 90% at 50% 20%, #FFFFFF 0%, #FFFFFF 55%, #F1F3F7 100%);
+}
+.pcard__img { position: relative; overflow: hidden; }
+.pcard__img::after, .plate__media::after { content: ""; position: absolute; left: 18%; right: 18%; bottom: 9%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 30, 60, .16), transparent); pointer-events: none; }
+.plate__media { position: sticky; }
+.pcard__img .shot, .plate__media .shot { position: relative; z-index: 1; }
+.shot img, .ind-cards__img img { filter: drop-shadow(0 10px 12px rgba(20, 30, 60, .14)); transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.pcard__img:hover .shot img { transform: translateY(-4px) scale(1.02); }
+.pcard__img:hover { transform: none; }
+.pcard__img:has(.noimg)::after { display: none; }
+/* Placeholder: branded, calm, clearly temporary */
+.noimg { gap: 8px; background: linear-gradient(160deg, #F7F8FB, #ECEFF5); border: 1.5px dashed #C9D0E2; color: var(--muted); padding: 18px; }
+.noimg img { width: 56px; height: 56px; margin: 0 auto 4px; opacity: .55; filter: grayscale(.3); }
+.noimg span { font-size: 13px; max-width: 24ch; margin: 0 auto; }
+.pcard__img .noimg { border-radius: var(--r); border: 0; }
+/* Real photos: consistent rounding, a frame line and a gentle zoom on hover */
+.rail--photos figure { overflow: hidden; border-radius: var(--r); }
+.rail--photos img { transition: transform .5s cubic-bezier(.2, .7, .2, 1); box-shadow: inset 0 0 0 1px rgba(0,0,0,.04); }
+.rail--photos figure:hover img { transform: scale(1.04); }
+.rail--photos figcaption { padding: 0 4px 6px; }
+/* Hero slides: no white fringe, stronger floor glow */
+.slide__img { filter: drop-shadow(0 22px 26px rgba(0, 0, 0, .5)) drop-shadow(0 0 1px rgba(0, 0, 0, .6)); }
+@media (prefers-reduced-motion: reduce) { .shot img, .rail--photos img { transition: none; } }

@@ -57,7 +57,7 @@ const capReadout = (cap) => {
 
 // ---------- components (all take `r` = relative prefix to site root) ----------
 const shot = (r, p, { sizes = '(max-width: 760px) 90vw, 50vw', lazy = true, h } = {}) => {
-  if (!p.img) return `<span class="noimg" role="img" aria-label="${esc(p.name)}, photo on request"><strong>${esc(p.model || p.name)}</strong><span>Photo on request</span></span>`;
+  if (!p.img) return `<span class="noimg" role="img" aria-label="${esc(p.name)}, photo coming soon"><img src="${r}assets/sunstar-seal.webp" alt="" width="64" height="64" loading="lazy"><strong>${esc(p.model || p.name)}</strong><span>Photo coming soon. Ask us on WhatsApp for pictures.</span></span>`;
   const ar = (p.img.w / p.img.h).toFixed(3);
   return `<span class="shot" style="--ar:${ar}${h ? `;--h:${h}` : ''}"><img src="${r}assets/products/${p.img.file}.webp" srcset="${r}assets/products/${p.img.file}-640.webp 640w, ${r}assets/products/${p.img.file}.webp ${p.img.w}w" sizes="${sizes}" width="${p.img.w}" height="${p.img.h}" alt="${esc(p.name)}, ${esc(site.brand)} ${esc(catBy[p.cat].name.toLowerCase())}"${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async"></span>`;
 };

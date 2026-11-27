@@ -117,7 +117,7 @@ export const categories = [
 export const products = [
   {
     slug: 'ss-30', model: 'SS-30', wm: 'SS-30', name: 'SS-30 Digital Tabletop Scale', cat: 'tabletop-scales',
-    img: { file: 'ss-30', w: 1233, h: 761 }, plate: 'bg-cream',
+    img: { file: 'ss-30', w: 1235, h: 763 }, plate: 'bg-cream',
     line: 'Glossy red body, stainless steel pan and a large red LED readout.',
     desc: 'A compact digital tabletop scale with a stainless steel pan and a bright red LED display. Memory keys (M+, MR+) and a mode key cover everyday counter weighing.',
     specs: [['Capacity', '30 kg'], ['Minimum', '100 g'], ['Readability (e)', '2 g'], ['Pan', 'Stainless steel'], ['Display', 'Red LED'], ['Keys', 'Zero/Tare, M+, MR+, Mode']],
@@ -125,7 +125,7 @@ export const products = [
   },
   {
     slug: 'stainless-tabletop', model: null, wm: 'Steel', name: 'Stainless Steel Tabletop Scale', cat: 'tabletop-scales',
-    img: { file: 'stainless-tabletop', w: 1072, h: 763 }, plate: 'bg-charcoal',
+    img: { file: 'stainless-tabletop', w: 1074, h: 765 }, plate: 'bg-charcoal',
     line: 'Stainless steel from pan to body, built for counters that are washed down.',
     desc: 'An all-stainless digital weighing scale for wet and busy counters: meat, fish, dairy and sweet shops. Runs on AC or DC.',
     specs: [['Body', 'Stainless steel'], ['Pan', 'Stainless steel'], ['Display', 'LED'], ['Power', 'AC / DC'], ['Keys', 'Zero/Tare, M+, MR, Mode']],
@@ -133,7 +133,7 @@ export const products = [
   },
   {
     slug: 'steel-pan-tabletop', model: null, wm: 'Steel', name: 'Steel-Pan Digital Weighing Scale', cat: 'tabletop-scales',
-    img: { file: 'steel-pan-tabletop', w: 1018, h: 759 }, plate: 'bg-soft',
+    img: { file: 'steel-pan-tabletop', w: 1020, h: 761 }, plate: 'bg-soft',
     line: 'White body, wide stainless pan, AC/DC power.',
     desc: 'A digital weighing scale with a wide stainless steel pan on a white body. A practical everyday scale for shops and packing desks.',
     specs: [['Pan', 'Stainless steel'], ['Body', 'White'], ['Display', 'LED'], ['Power', 'AC / DC'], ['Keys', 'Zero/Tare, M+, MR, Mode']],
@@ -173,7 +173,7 @@ export const products = [
   },
   {
     slug: 'kissan-platform', model: 'Kissan', wm: 'Kissan', name: 'Kissan Model Platform Scale', cat: 'platform-scales',
-    img: { file: 'kissan-platform', w: 697, h: 914 }, plate: 'bg-charcoal',
+    img: { file: 'kissan-platform', w: 733, h: 950 }, plate: 'bg-charcoal',
     line: 'Compact diamond-plate platform with a handle, built for mandis, godowns and farm produce.',
     desc: 'The Kissan model is a compact platform scale with a black diamond-plate top, tubular handle frame and a bright green LED display. Adjustable feet keep it level on shop and godown floors.',
     specs: [['Platform', 'MS diamond plate, black'], ['Frame', 'Tubular steel handle'], ['Display', 'Green LED'], ['Keys', 'M+, MR, Mode, Zero'], ['Feet', 'Adjustable']],
@@ -189,7 +189,7 @@ export const products = [
   },
   {
     slug: 'ssp-50', model: 'SSP-50', wm: 'SSP-50', name: 'SSP-50 Platform Scale, Stainless Top', cat: 'platform-scales',
-    img: { file: 'ssp-50', w: 770, h: 1546 }, plate: 'bg-cream',
+    img: { file: 'ssp-50', w: 742, h: 1456 }, plate: 'bg-cream',
     line: 'Stainless platform, backrest and a raised indicator for parcels and sacks.',
     desc: 'A platform scale with a stainless steel top, tubular backrest and raised digital indicator. Ideal for parcels, sacks and dispatch.',
     specs: [['Capacity', '50 kg'], ['Minimum', '100 g'], ['Readability (e)', '5 g'], ['Platform', 'Stainless steel (SS)'], ['Platform size', '300 × 300 mm (12 in)'], ['Indicator', 'Raised LED']],
@@ -197,7 +197,7 @@ export const products = [
   },
   {
     slug: 'ss-cs1000', model: 'SS-CS1000', wm: 'CS1000', name: 'SS-CS1000 OCS Electronic Crane Scale', cat: 'special-scales',
-    img: { file: 'ss-cs1000-orange', w: 572, h: 1264 }, plate: 'bg-cream',
+    img: { file: 'ss-cs1000-orange', w: 622, h: 1314 }, plate: 'bg-cream',
     line: 'Hangs from the hook, reads on a bright LED display.',
     desc: 'Rugged electronic crane scale with a bright green LED display for overhead weighing in factories, stores and loading areas. Rechargeable, with tare on the unit.',
     specs: [['Capacity', '1000 / 3000 / 5000 kg'], ['Accuracy', '± 0.5 kg'], ['Display', 'Bright green LED'], ['Keys', 'LED/RIG mode, On/Off tare'], ['Power', 'Rechargeable battery'], ['Housing', 'Rugged metal, orange']],
@@ -249,43 +249,9 @@ export const faqs = {
 // Real photos for the home page gallery (assets/gallery/*.webp, 1000x1000)
 export const gallery = [
   { "file": "shop-kissan-1", "caption": "Kissan model platform scales at our Bahadurgarh shop" },
+  { "file": "shop-platform-1", "caption": "SSP-50 platform scale on the shop floor" },
   { "file": "shop-kissan-2", "caption": "Kissan model, diamond-plate top and handle" },
-  {
-    "file": "shop-platform-1",
-    "caption": "SSP-50 platform scale at our Bahadurgarh shop"
-  },
-  {
-    "file": "shop-platform-2",
-    "caption": "Platform scales ready for dispatch"
-  },
-  {
-    "file": "studio-ss30",
-    "caption": "SS-30 tabletop scale"
-  },
-  {
-    "file": "studio-stainless",
-    "caption": "Stainless steel tabletop scale"
-  },
-  {
-    "file": "studio-sst30",
-    "caption": "SST-30 price computing scale"
-  },
-  {
-    "file": "studio-platform",
-    "caption": "Heavy-duty diamond-plate platform scale"
-  },
-  {
-    "file": "studio-electronic",
-    "caption": "Electronic tabletop scale"
-  },
-  {
-    "file": "studio-steelpan",
-    "caption": "Steel-pan digital scale"
-  },
-  {
-    "file": "studio-compact",
-    "caption": "Compact digital scale"
-  }
+  { "file": "shop-platform-2", "caption": "Platform scales ready for dispatch" },
 ];
 
 // Model ranges from Sunstar's printed brochure (photographed 27 Nov 2026).
