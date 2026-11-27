@@ -3,6 +3,9 @@
 
 export const site = {
   name: 'Sunstar Systems',
+  alternateNames: ['Sunstar Scales', 'Sunstar Weighing Scales', 'Sunstar Weighing Machines'],
+  // Towns and industrial areas a Bahadurgarh shop serves directly (sales visits, installation, repair).
+  localAreas: ['Bahadurgarh', 'HSIIDC Industrial Estate, Bahadurgarh', 'Modern Industrial Estate (MIE), Bahadurgarh', 'Jhajjar', 'Rohtak', 'Sampla', 'Asaudha', 'Sonipat', 'Kharkhoda', 'Mundka', 'Tikri', 'Nangloi', 'Bawana', 'Najafgarh', 'West Delhi'],
   brand: 'Sunstar',
   domain: 'https://www.sunstarscales.com', // TODO: confirm www vs apex once DNS is set
   tagline: 'Digital weighing scales, platform scales, weighbridges and load cells, made and serviced in Bahadurgarh, Haryana since 1996.',
@@ -243,6 +246,19 @@ export const faqs = {
     ['Do you deliver outside Haryana?', 'Yes. We dispatch across India, including South India, the North East and Jammu & Kashmir, and we have dealers in Jammu and Rajasthan.'],
     ['Where is your shop?', '49, Main Road, Vivekanand Nagar, near Metro Pillar No. 804, Bahadurgarh, Haryana 124507.'],
     ['Do you repair and calibrate scales?', 'Yes. We service, repair and calibrate weighing scales, and supply replacement load cells and indicators.'],
+    ['Are you a weighing machine manufacturer or a dealer?', 'Sunstar Systems is a weighing machine manufacturer in Bahadurgarh, Haryana, making and calibrating scales here since 1996. We sell direct and through dealers in Jammu and Rajasthan.'],
+  ],
+  local: [
+    ['Where can I buy a weighing machine in Bahadurgarh?', 'At Sunstar Systems, 49, Main Road, Vivekanand Nagar, near Metro Pillar No. 804, Bahadurgarh. You can see the scales at the shop, or message us on WhatsApp for today’s price.'],
+    ['Do you install and repair weighing machines at factories in Bahadurgarh?', 'Yes. We install platform scales and weighbridges on site, and repair and calibrate weighing machines across Bahadurgarh, the HSIIDC and MIE industrial areas, Jhajjar, Rohtak and West Delhi.'],
+    ['What is the price of a weighing machine in Bahadurgarh?', 'It depends on capacity and model: a 30 kg tabletop scale costs far less than a 300 kg platform scale or a 5 tonne crane scale. Send the weight you need on WhatsApp and we reply with today’s price.'],
+    ['Do you make dharam kanta (weighbridges)?', 'Yes. We supply electronic weighbridges (dharam kanta) for trucks, pit type and pitless, with load cells and indicator, installed on site.'],
+  ],
+  repair: [
+    ['Do you repair all brands of weighing machines?', 'Yes. We repair digital and electronic weighing machines of all makes, including tabletop, platform, crane scales and weighbridges.'],
+    ['How long does a weighing machine repair take?', 'Most tabletop and platform scale repairs are done in our Bahadurgarh workshop the same day or the next day, depending on the part needed.'],
+    ['Do you calibrate weighing scales?', 'Yes. We calibrate weighing machines with standard test weights so the reading is correct.'],
+    ['Do you have spare load cells and displays?', 'Yes. Load cells, motherboards (PCB), displays and adaptors are usually in stock.'],
   ],
 };
 

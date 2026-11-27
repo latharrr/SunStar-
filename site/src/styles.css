@@ -555,3 +555,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* Hero slides: no white fringe, stronger floor glow */
 .slide__img { filter: drop-shadow(0 22px 26px rgba(0, 0, 0, .5)) drop-shadow(0 0 1px rgba(0, 0, 0, .6)); }
 @media (prefers-reduced-motion: reduce) { .shot img, .rail--photos img { transition: none; } }
+
+/* ---------- SEO landing pages ---------- */
+.seo-cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px clamp(28px, 5vw, 64px); align-items: start; }
+.seo-cols p, .seo-p { max-width: 68ch; color: var(--body); margin-bottom: 14px; }
+.seo-list { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.seo-list a { color: var(--link); text-decoration: none; font-weight: 500; }
+.seo-list a:hover { text-decoration: underline; }
+.seo-card { background: var(--card); border-radius: var(--r); padding: 24px; }
+.nap { font-style: normal; line-height: 1.7; color: var(--ink); }
+.nap a { color: var(--link); }
+@media (max-width: 760px) { .seo-cols { grid-template-columns: minmax(0, 1fr); } }

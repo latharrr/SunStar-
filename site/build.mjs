@@ -59,7 +59,7 @@ const capReadout = (cap) => {
 const shot = (r, p, { sizes = '(max-width: 760px) 90vw, 50vw', lazy = true, h } = {}) => {
   if (!p.img) return `<span class="noimg" role="img" aria-label="${esc(p.name)}, photo coming soon"><img src="${r}assets/sunstar-seal.webp" alt="" width="64" height="64" loading="lazy"><strong>${esc(p.model || p.name)}</strong><span>Photo coming soon. Ask us on WhatsApp for pictures.</span></span>`;
   const ar = (p.img.w / p.img.h).toFixed(3);
-  return `<span class="shot" style="--ar:${ar}${h ? `;--h:${h}` : ''}"><img src="${r}assets/products/${p.img.file}.webp" srcset="${r}assets/products/${p.img.file}-640.webp 640w, ${r}assets/products/${p.img.file}.webp ${p.img.w}w" sizes="${sizes}" width="${p.img.w}" height="${p.img.h}" alt="${esc(p.name)}, ${esc(site.brand)} ${esc(catBy[p.cat].name.toLowerCase())}"${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async"></span>`;
+  return `<span class="shot" style="--ar:${ar}${h ? `;--h:${h}` : ''}"><img src="${r}assets/products/${p.img.file}.webp" srcset="${r}assets/products/${p.img.file}-640.webp 640w, ${r}assets/products/${p.img.file}.webp ${p.img.w}w" sizes="${sizes}" width="${p.img.w}" height="${p.img.h}" alt="${esc(p.name)}, ${esc(site.brand)} weighing machine, Bahadurgarh"${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async"></span>`;
 };
 
 // The spec plate printed on every Sunstar scale: Max / Min / e
@@ -135,24 +135,34 @@ const pageHead = ({ h1, lede, cta }) => `<section class="page-head">
 
 // ---------- schema ----------
 const business = {
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'Store'],
   '@id': site.domain + '/#business',
   name: site.name,
+  alternateName: site.alternateNames,
   url: site.domain + '/',
   image: site.domain + '/assets/og.jpg',
   logo: site.domain + '/assets/sunstar-seal.png',
   telephone: site.phoneE164,
   foundingDate: String(site.founded),
   founder: { '@type': 'Person', name: site.founder },
-  description: site.tagline,
+  description: 'Weighing machine manufacturer in Bahadurgarh, Haryana since 1996: electronic tabletop, price computing, platform and crane scales, weighbridges (dharam kanta), load cells, repair and calibration.',
+  slogan: 'A quality product',
   priceRange: '₹₹',
+  currenciesAccepted: 'INR',
+  paymentAccepted: 'Cash, Cheque, Bank transfer, Visa, Mastercard, RuPay',
   address: { '@type': 'PostalAddress', streetAddress: a.street, addressLocality: a.city, addressRegion: a.region, postalCode: a.postal, addressCountry: a.country },
   ...(site.geo ? { geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng } } : {}),
-  areaServed: { '@type': 'Country', name: 'India' },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.name + ', ' + addressLine)}`,
+  areaServed: [...site.localAreas.map((n) => ({ '@type': 'Place', name: n })), { '@type': 'Country', name: 'India' }],
+  contactPoint: { '@type': 'ContactPoint', telephone: site.phoneE164, contactType: 'sales', areaServed: 'IN', availableLanguage: ['en', 'hi'] },
+  knowsAbout: ['Weighing machines', 'Electronic weighing scales', 'Digital weighing scales', 'Platform scales', 'Crane scales', 'Weighbridges', 'Load cells', 'Weighing scale repair', 'Weighing scale calibration'],
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Weighing machines', itemListElement: categories.map((c) => ({ '@type': 'OfferCatalog', name: c.name, url: urlOf(`${c.slug}/`) })) },
+  makesOffer: ['Weighing machine repair', 'Weighing scale calibration', 'Weighbridge installation'].map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n, areaServed: 'Bahadurgarh, Haryana' } })),
   sameAs: site.profiles,
   ...(site.gstin ? { taxID: site.gstin } : {}),
 };
-const website = { '@type': 'WebSite', '@id': site.domain + '/#website', url: site.domain + '/', name: site.name, publisher: { '@id': business['@id'] } };
+const website = { '@type': 'WebSite', '@id': site.domain + '/#website', url: site.domain + '/', name: site.name, alternateName: site.alternateNames, inLanguage: 'en-IN', publisher: { '@id': business['@id'] } };
+const productLd = (p) => ({ '@type': 'Product', '@id': urlOf(`products/${p.slug}/`) + '#product', name: p.name, ...(p.model ? { sku: p.model, mpn: p.model } : {}), category: catBy[p.cat].name, description: p.desc, ...(p.img ? { image: urlOf(`assets/products/${p.img.file}.webp`) } : {}), brand: { '@type': 'Brand', name: site.brand }, manufacturer: { '@id': business['@id'] }, additionalProperty: p.specs.map(([k, v]) => ({ '@type': 'PropertyValue', name: k, value: v })) });
 const breadcrumbLd = (crumbs) => ({
   '@type': 'BreadcrumbList',
   itemListElement: [{ name: 'Home', path: '' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: urlOf(c.path) })),
@@ -183,6 +193,9 @@ function page({ path, title, desc, body, schema = [], crumbs, home = false, ogIm
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${urlOf(path)}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="geo.region" content="IN-HR">
+<meta name="geo.placename" content="Bahadurgarh, Haryana">
 <meta name="theme-color" content="#F5F5F7">
 <link rel="icon" href="${r}assets/favicon.png" type="image/png">
 <meta property="og:type" content="website">
@@ -192,10 +205,11 @@ function page({ path, title, desc, body, schema = [], crumbs, home = false, ogIm
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:image" content="${urlOf(ogImage)}">
+<meta property="og:image:alt" content="${esc(site.name)}, weighing machine manufacturer in Bahadurgarh">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 ${preload}<link rel="stylesheet" href="${r}styles.css">
 <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>
 </head>
@@ -236,15 +250,15 @@ ${body(r)}
   <div class="wrap footer__grid">
     <div>
       <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="38" height="38"><span class="wordmark__text"><img class="wordmark__logo" src="${r}assets/sunstar-wordmark.webp" alt="Sunstar Systems" width="600" height="142"><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></p>
-      <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Manufactured in Bahadurgarh, Haryana, and dispatched across India.</p>
+      <p class="footer__note">Weighing machine manufacturer in Bahadurgarh, Haryana, since ${site.founded}. Weighing scales, weighbridges and load cells, dispatched across India.</p>
     </div>
     <div>
       <h2>Products</h2>
       <ul>${categories.map((c) => `<li><a href="${r}${c.slug}/">${esc(c.name)}</a></li>`).join('')}</ul>
     </div>
     <div>
-      <h2>Company</h2>
-      <ul><li><a href="${r}about/">About</a></li><li><a href="${r}clients/">Clients</a></li><li><a href="${r}pan-india-supply/">Supply across India</a></li><li><a href="${r}contact/">Contact</a></li><li><a href="${r}experience/">3D walkthrough</a></li></ul>
+      <h2>Sunstar</h2>
+      <ul><li><a href="${r}weighing-machine-bahadurgarh/">Weighing machine in Bahadurgarh</a></li><li><a href="${r}weighing-machine-manufacturer/">Weighing machine manufacturer</a></li><li><a href="${r}weighing-machine-repair-bahadurgarh/">Weighing machine repair</a></li><li><a href="${r}about/">About</a></li><li><a href="${r}clients/">Clients</a></li><li><a href="${r}pan-india-supply/">Supply across India</a></li><li><a href="${r}contact/">Contact</a></li><li><a href="${r}experience/">3D walkthrough</a></li></ul>
     </div>
     <div>
       <h2>Visit</h2>
@@ -277,6 +291,16 @@ ${body(r)}
 }
 
 // ---------- pages ----------
+const CAT_TITLE = {
+  'tabletop-scales': 'Tabletop Weighing Machine in Bahadurgarh | Sunstar',
+  'price-computing-scales': 'Price Computing Scale in Bahadurgarh | Sunstar',
+  'platform-scales': 'Platform Weighing Machine in Bahadurgarh | Sunstar',
+  'jewellery-scales': 'Jewellery Weighing Scale in Bahadurgarh | Sunstar',
+  weighbridges: 'Weighbridge (Dharam Kanta) in Bahadurgarh | Sunstar',
+  'load-cells': 'Load Cells & Weighing Indicators, Bahadurgarh | Sunstar',
+  'special-scales': 'Crane & Hanging Scales in Bahadurgarh | Sunstar',
+  'automation-instrumentation': 'Weighing Automation & Instrumentation | Sunstar',
+};
 const hero = prodBy['ss-30'];
 const featured = ['ss-30', 'stainless-tabletop', 'sst-30', 'ss-pf100'].map((s) => prodBy[s]);
 const PLATE_TONE = { 'bg-cream': 'tone-plain', 'bg-soft': 'tone-plain', 'bg-charcoal': 'tone-plain', 'bg-orange': 'tone-plain' };
@@ -290,8 +314,8 @@ const STRIP = [
 page({
   path: '',
   home: true,
-  title: 'Sunstar Systems — Weighing Scales & Weighbridges, Bahadurgarh',
-  desc: 'Digital, price computing, platform, floor and crane weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
+  title: 'Weighing Machine Manufacturer in Bahadurgarh | Sunstar Systems',
+  desc: 'Weighing machine manufacturer in Bahadurgarh since 1996: tabletop, platform and crane scales, weighbridges, repair and calibration. Price on WhatsApp.',
   schema: [faqLd(faqs.common)],
   body: (r) => `
 <section class="hero-c" aria-roledescription="carousel" aria-labelledby="hero-title">
@@ -301,7 +325,7 @@ page({
         <div class="slide__copy">
           <img class="slide__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
           <p class="slide__k">Since ${site.founded}, Bahadurgarh</p>
-          <h1 id="hero-title">Weighing scale manufacturer</h1>
+          <h1 id="hero-title">Weighing machine manufacturer in Bahadurgarh</h1>
           <p class="slide__lede">Tabletop, price computing, platform and crane scales, built and calibrated in our Bahadurgarh workshop.</p>
           <a class="btn btn--red" href="${r}products/">See all products</a>
         </div>
@@ -338,7 +362,7 @@ page({
 
 <section class="intro-band"><div class="wrap">
     <div class="intro">
-      <p>Since ${site.founded}, Sunstar Systems has manufactured tabletop, price computing, platform, floor and crane scales, weighbridges and load cells for sweet shops, pharmacies, footwear makers and national grocery brands. Every scale is calibrated in our Bahadurgarh workshop and comes with installation and service. We dispatch to every state, with dealers in Jammu and Rajasthan.</p>
+      <p>Since ${site.founded}, Sunstar Systems has manufactured tabletop, price computing, platform, floor and crane scales, weighbridges and load cells for sweet shops, pharmacies, footwear makers and national grocery brands. Every scale is calibrated in our Bahadurgarh workshop and comes with installation and service. We dispatch to every state, with dealers in Jammu and Rajasthan. Looking for a <a class="textlink" href="${r}weighing-machine-bahadurgarh/">weighing machine in Bahadurgarh</a> or <a class="textlink" href="${r}weighing-machine-repair-bahadurgarh/">weighing machine repair</a>? Visit the shop near Metro Pillar 804.</p>
       <div class="intro__cta"><a class="btn" href="${waGeneral}">Get today’s price on WhatsApp</a><a class="textlink textlink--chev" href="${tel}">Call ${esc(site.phoneDisplay)}</a></div>
     </div>
   </div>
@@ -409,7 +433,7 @@ ${closing()}`,
 // PRODUCTS INDEX
 page({
   path: 'products/',
-  title: 'All Products: Weighing Scales & Weighbridges | Sunstar Systems',
+  title: 'Weighing Machines & Scales, All Models | Sunstar Bahadurgarh',
   desc: 'Tabletop, price computing, platform and jewellery scales, weighbridges, load cells and crane scales from Sunstar Systems. Get today’s price on WhatsApp.',
   crumbs: [{ name: 'Products', path: 'products/' }],
   schema: [itemListLd(products)],
@@ -446,8 +470,8 @@ for (const c of categories) {
   ];
   page({
     path: `${c.slug}/`,
-    title: `${c.name} | Sunstar Systems, Bahadurgarh`,
-    desc: clip(`${c.intro.split('. ')[0]}. Supplied across India from Bahadurgarh. Price on WhatsApp.`),
+    title: CAT_TITLE[c.slug] || `${c.name} | Sunstar Bahadurgarh`,
+    desc: clip(`${c.name} from Sunstar, weighing machine manufacturer in Bahadurgarh. ${c.intro.split('. ')[0]}. Price on WhatsApp.`),
     crumbs: [{ name: 'Products', path: 'products/' }, { name: c.name, path: `${c.slug}/` }],
     schema: [faqLd(items), ...(list.length ? [itemListLd(list)] : [])],
     body: (r) => `
@@ -481,10 +505,10 @@ for (const p of products) {
   page({
     product: p,
     path: `products/${p.slug}/`,
-    title: `${p.name} | Sunstar Systems`,
-    desc: clip(`${p.name}${capOf(p) ? `, ${capOf(p)}` : ''}. ${p.line} Get today’s price on WhatsApp.`),
+    title: `${p.name} | Sunstar Bahadurgarh`.length <= 62 ? `${p.name} | Sunstar Bahadurgarh` : `${p.name} | Sunstar`,
+    desc: clip(`${p.name}${capOf(p) ? `, ${capOf(p)}` : ''}. ${p.line} Made by Sunstar, Bahadurgarh. Get today’s price on WhatsApp.`),
     crumbs: [{ name: 'Products', path: 'products/' }, { name: c.name, path: `${c.slug}/` }, { name: p.model || p.name, path: `products/${p.slug}/` }],
-    schema: [faqLd(items)],
+    schema: [faqLd(items), productLd(p)],
     ogImage: p.img ? `assets/products/${p.img.file}.webp` : 'assets/og.jpg',
     body: (r) => `
 <section class="plate plate--page ${PLATE_TONE[p.plate]}" aria-labelledby="p-title">
@@ -524,7 +548,7 @@ ${closing()}`,
 // CLIENTS
 page({
   path: 'clients/',
-  title: 'Clients & Industries | Sunstar Systems',
+  title: 'Clients & Industries | Sunstar Weighing Machines',
   desc: 'Weighing scales and weighbridges for brands, manufacturers, retailers and warehouses across India. Bulk orders with GST invoice.',
   crumbs: [{ name: 'Clients', path: 'clients/' }],
   body: (r) => `
@@ -560,7 +584,7 @@ ${closing()}`,
 // ABOUT
 page({
   path: 'about/',
-  title: 'About Sunstar Systems — Weighing Scales Since 1996',
+  title: 'About Sunstar: Weighing Machine Manufacturer Since 1996',
   desc: `Sunstar Systems has manufactured and serviced weighing scales in Bahadurgarh, Haryana since ${site.founded}. Managing Director ${site.founder}.`,
   crumbs: [{ name: 'About', path: 'about/' }],
   body: (r) => `
@@ -596,7 +620,7 @@ ${closing()}`,
 // PAN-INDIA
 page({
   path: 'pan-india-supply/',
-  title: 'Weighing Scale Supplier Across India | Sunstar Systems',
+  title: 'Weighing Machine Supplier Across India | Sunstar Systems',
   desc: 'Weighing scales, platform scales and load cells dispatched from Bahadurgarh to every state, including South India, the North East and Jammu & Kashmir.',
   crumbs: [{ name: 'Supply across India', path: 'pan-india-supply/' }],
   body: (r) => `
@@ -624,7 +648,7 @@ ${closing()}`,
 // CONTACT
 page({
   path: 'contact/',
-  title: 'Contact Sunstar Systems, Bahadurgarh',
+  title: 'Contact Sunstar | Weighing Machine Shop in Bahadurgarh',
   desc: clip(`Weighing scale shop near Metro Pillar 804, Vivekanand Nagar, Bahadurgarh. Call ${site.phoneDisplay} or WhatsApp for today’s price.`),
   crumbs: [{ name: 'Contact', path: 'contact/' }],
   body: (r) => `
@@ -662,6 +686,107 @@ ${pageHead({ h1: 'Contact Sunstar' })}
 </section>`,
 });
 
+
+// ---------- local SEO landing pages ----------
+const areaList = () => `<ul class="pills">${site.localAreas.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`;
+const mapEmbed = () => `<iframe class="map" title="Map to ${esc(site.name)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(site.name + ', ' + addressLine)}&amp;output=embed"></iframe>`;
+const napBlock = () => `<address class="nap"><strong>${esc(site.name)}</strong><br>${esc(a.street)}<br>${esc(a.city)}, ${esc(a.district)} district, ${esc(a.region)} ${esc(a.postal)}<br><a href="${tel}">${esc(site.phoneDisplay)}</a> · <a href="${waGeneral}">WhatsApp</a></address>`;
+
+page({
+  path: 'weighing-machine-bahadurgarh/',
+  title: 'Weighing Machine in Bahadurgarh | Sunstar Systems, Since 1996',
+  desc: clip(`Buy a weighing machine in Bahadurgarh from the manufacturer. Digital, platform, crane scales and weighbridges near Metro Pillar 804. Repair, calibration, same-day price on WhatsApp.`),
+  crumbs: [{ name: 'Weighing machine in Bahadurgarh', path: 'weighing-machine-bahadurgarh/' }],
+  schema: [faqLd(faqs.local)],
+  body: (r) => `
+${pageHead({ h1: 'Weighing machine in Bahadurgarh', lede: `Sunstar Systems has made and sold weighing machines from Vivekanand Nagar, Bahadurgarh, since ${site.founded}. Come to the shop near Metro Pillar No. 804 to see the scales, or send the weight you need on WhatsApp for today’s price.`, cta: `<a class="btn" href="${waGeneral}">Get today’s price</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
+<section class="band band--flush"><div class="wrap seo-cols">
+  <div>
+    <h2 class="h3">Every kind of weight machine, from one Bahadurgarh shop</h2>
+    <p>Shops, factories and warehouses in Bahadurgarh buy from us because the scale is made, calibrated and serviced in the same place. Whether you call it a weighing machine, weight machine, electronic kanta, digital tarazu or dharam kanta, we make the right one for the job:</p>
+    <ul class="seo-list">
+      <li><a href="${r}tabletop-scales/">Tabletop weighing machines</a> for kirana, sweet and grocery counters, up to 30 kg</li>
+      <li><a href="${r}price-computing-scales/">Price computing scales</a> with a customer pole display</li>
+      <li><a href="${r}platform-scales/">Platform weighing machines</a> from 50 kg to 5 tonnes, including the Kissan model</li>
+      <li><a href="${r}special-scales/">Crane and hanging scales</a> up to 5 tonnes</li>
+      <li><a href="${r}weighbridges/">Weighbridges (dharam kanta)</a> for trucks, installed on site</li>
+      <li><a href="${r}jewellery-scales/">Jewellery and precision scales</a> for gold, silver and labs</li>
+      <li><a href="${r}load-cells/">Load cells, indicators and spare parts</a>, usually in stock</li>
+    </ul>
+  </div>
+  <aside class="seo-card">
+    <h2 class="h3">Visit the shop</h2>
+    ${napBlock()}
+    <p class="note">${esc(site.hours)}</p>
+    <p><a class="textlink textlink--chev" href="${r}contact/">Directions and contact</a></p>
+  </aside>
+</div></section>
+<section class="band band--tight"><div class="wrap">
+  <h2 class="h3">Areas we cover from Bahadurgarh</h2>
+  <p class="seo-p">Sales visits, installation, repair and calibration across Bahadurgarh and nearby towns and industrial areas. For the rest of India we dispatch by transport, with dealers in Jammu and Rajasthan.</p>
+  ${areaList()}
+</div></section>
+<section class="band band--tight catalogue"><div class="wrap">
+  <div class="band__head"><h2 class="h2">Popular weighing machines in Bahadurgarh</h2><a class="textlink" href="${r}products/">All products</a></div>
+  <ul class="grid">${['ss-30', 'sst-30', 'kissan-platform', 'ss-pf100', 'ssp-50', 'ss-cs1000'].map((sl) => tile(r, prodBy[sl])).join('')}</ul>
+</div></section>
+<section class="band band--tight"><div class="wrap">${mapEmbed()}</div></section>
+${faqBlock(faqs.local)}
+${closing()}`,
+});
+
+page({
+  path: 'weighing-machine-manufacturer/',
+  title: 'Weighing Machine Manufacturer in Haryana | Sunstar Systems',
+  desc: clip(`Sunstar Systems is a weighing machine manufacturer in Bahadurgarh, Haryana, since ${site.founded}. Electronic tabletop, platform and crane scales, bulk and dealer orders, pan-India dispatch.`),
+  crumbs: [{ name: 'Weighing machine manufacturer', path: 'weighing-machine-manufacturer/' }],
+  schema: [faqLd(faqs.common.slice(-1).concat([['Do you supply dealers and bulk buyers?', 'Yes. We supply dealers and companies with GST invoices and dispatch across India. We already have dealers in Jammu and Rajasthan.']]))],
+  body: (r) => `
+${pageHead({ h1: 'Weighing machine manufacturer in Bahadurgarh, Haryana', lede: `Sunstar Systems designs, assembles and calibrates electronic weighing machines in Bahadurgarh. Since ${site.founded} we have supplied shops, factories and national brands such as bigbasket, Relaxo and Gulab Rewri.`, cta: `<a class="btn" href="${wa('Hi Sunstar, I want a bulk / dealer quote for weighing machines')}">Bulk or dealer quote</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
+<section class="band band--flush"><div class="wrap">
+  <ul class="ind">
+    <li><h3>Made in Bahadurgarh</h3><p>Every Sunstar scale is assembled, tested and calibrated in our own workshop before dispatch.</p></li>
+    <li><h3>Full range, one maker</h3><p>Tabletop, price computing, platform, crane, pocket and jewellery scales, weighbridges and load cells.</p></li>
+    <li><h3>Built to your size</h3><p>Platform scales from 400 × 400 mm to 1500 × 1500 mm, with other sizes made to order.</p></li>
+    <li><h3>Dealers and bulk buyers</h3><p>GST invoice, dispatch to several locations, and dealer pricing. Dealers already in Jammu and Rajasthan.</p></li>
+    <li><h3>Service after sale</h3><p>Repair, calibration and spare parts for every scale we make, and for other brands too.</p></li>
+    <li><h3>Automation too</h3><p>Weighbridge conversion kits with software, milk weighing systems and auto filling machines.</p></li>
+  </ul>
+</div></section>
+${Object.values(ranges).map(rangeBlock).join('\n')}
+<section class="band band--tight"><div class="wrap">
+  <h2 class="h3">Weighing machines we manufacture</h2>
+  <ul class="cats">${categories.map((c) => `<li class="cat"><a href="${r}${c.slug}/"><h3>${esc(c.name)}</h3><p>${esc(c.intro)}</p><span class="textlink">See the range</span></a></li>`).join('')}</ul>
+</div></section>
+${closing()}`,
+});
+
+page({
+  path: 'weighing-machine-repair-bahadurgarh/',
+  title: 'Weighing Machine Repair & Calibration in Bahadurgarh | Sunstar',
+  desc: clip('Weighing machine repair in Bahadurgarh for all brands: tabletop, platform, crane scales and weighbridges. Calibration, load cells, displays and PCBs in stock. Call or WhatsApp Sunstar.'),
+  crumbs: [{ name: 'Weighing machine repair', path: 'weighing-machine-repair-bahadurgarh/' }],
+  schema: [faqLd(faqs.repair), { '@type': 'Service', name: 'Weighing machine repair and calibration', serviceType: 'Weighing scale repair', provider: { '@id': business['@id'] }, areaServed: site.localAreas.map((n) => ({ '@type': 'Place', name: n })), url: urlOf('weighing-machine-repair-bahadurgarh/') }],
+  body: (r) => `
+${pageHead({ h1: 'Weighing machine repair and calibration in Bahadurgarh', lede: 'Scale not switching on, showing the wrong weight or drifting? Bring it to our Bahadurgarh workshop or call us to your site. We repair all makes, not only Sunstar.', cta: `<a class="btn" href="${wa('Hi Sunstar, my weighing machine needs repair. Model / problem: ')}">Book a repair on WhatsApp</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
+<section class="band band--flush"><div class="wrap">
+  <ul class="ind">
+    <li><h3>Not switching on</h3><p>Adaptor, battery, PCB and wiring faults on tabletop and platform scales.</p></li>
+    <li><h3>Wrong or unstable reading</h3><p>Load cell replacement, levelling and full recalibration with test weights.</p></li>
+    <li><h3>Display and keypad</h3><p>Dead segments, faded displays and broken keys replaced.</p></li>
+    <li><h3>Platform and crane scales</h3><p>Damaged platforms, frames, hooks and indicators repaired on site.</p></li>
+    <li><h3>Weighbridges</h3><p>Load cell, junction box and indicator faults, plus conversion kits with software.</p></li>
+    <li><h3>Spare parts in stock</h3><p>Load cells, motherboards, displays and adaptors, ready the same day.</p></li>
+  </ul>
+</div></section>
+<section class="band band--tight"><div class="wrap seo-cols">
+  <div><h2 class="h3">Areas we service</h2>${areaList()}</div>
+  <aside class="seo-card"><h2 class="h3">Workshop</h2>${napBlock()}</aside>
+</div></section>
+${faqBlock(faqs.repair)}
+${closing()}`,
+});
+
 // 404 (not in sitemap)
 const before = sitemap.length;
 page({
@@ -676,8 +801,19 @@ cpSync(join(DIST, '404/index.html'), join(DIST, '404.html'));
 // sitemap + robots
 writeFileSync(join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemap.map((p) => `  <url><loc>${urlOf(p)}</loc></url>`).join('\n')}
+${sitemap.map((p) => `  <url><loc>${urlOf(p)}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>`).join('\n')}
 </urlset>
+`);
+writeFileSync(join(DIST, 'llms.txt'), `# ${site.name}
+
+> Weighing machine manufacturer in Bahadurgarh, Haryana, India, since ${site.founded}. Electronic tabletop, price computing, platform, crane, pocket and jewellery scales, weighbridges (dharam kanta), load cells, repair and calibration. Dealers in Jammu and Rajasthan; dispatch across India.
+
+- Address: ${addressLine}
+- Phone / WhatsApp: ${site.phoneDisplay}
+- Prices: on enquiry (WhatsApp)
+
+## Pages
+${sitemap.map((p) => `- ${urlOf(p)}`).join('\n')}
 `);
 writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /404/\nSitemap: ${site.domain}/sitemap.xml\n`);
 
