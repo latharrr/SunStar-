@@ -5,7 +5,7 @@ export const site = {
   name: 'Sunstar Systems',
   brand: 'Sunstar',
   domain: 'https://www.sunstarscales.com', // TODO: confirm www vs apex once DNS is set
-  tagline: 'Digital weighing scales, platform scales, weighbridges and load cells. Bahadurgarh, Haryana · Since 1996.',
+  tagline: 'Digital weighing scales, platform scales, weighbridges and load cells, made and serviced in Bahadurgarh, Haryana since 1996.',
   founded: 1996,
   founder: 'Surender Kumar Dhayal', // Managing Director (TradeIndia / Justdial listing)
   phoneDisplay: '093553 49600',
@@ -23,7 +23,7 @@ export const site = {
     country: 'IN',
   },
   geo: null, // TODO: { lat: 28.69, lng: 76.93 } — copy exact pin from Google Business Profile
-  hours: 'Opens 9:00 am · call ahead for timings', // TODO: full weekly hours
+  hours: 'Opens 9:00 am, call ahead for timings', // TODO: full weekly hours
   rating: { value: '4.4', count: 15, source: 'Justdial' }, // shown as text only, not in schema
   profiles: [ // TODO: add IndiaMART + Google Business Profile URLs
     'https://www.justdial.com/Bahadurgarh-Haryana/Sunstar-Systems-Near-Metro-Pillar-No-804-Vivekanand-Nagar/9999P1276-1276-140725145758-Q8B9_BZDET',
@@ -50,28 +50,28 @@ export const site = {
 
 export const categories = [
   {
-    slug: 'tabletop-scales', name: 'Tabletop & Counter Scales', short: 'Tabletop',
+    slug: 'tabletop-scales', name: 'Tabletop & counter scales', short: 'Tabletop',
     plate: 'bg-cream', hero: 'ss-30',
     range: 'Up to 30 kg',
     intro: 'Digital tabletop and counter scales for shops, kitchens, packing lines and dispatch desks. Stainless steel pans, bright LED displays and AC/DC power with a rechargeable battery.',
     uses: ['Grocery & kirana', 'Sweet & dry-fruit shops', 'Packing & dispatch', 'Restaurants & cloud kitchens', 'Small manufacturing'],
   },
   {
-    slug: 'price-computing-scales', name: 'Price Computing Scales', short: 'Price computing',
+    slug: 'price-computing-scales', name: 'Price computing scales', short: 'Price computing',
     plate: 'bg-orange', hero: 'sst-30',
     range: 'Up to 30 kg',
     intro: 'Weight, rate and total amount on one scale, with a raised pole display the customer can read. Built for retail counters that weigh and bill all day.',
     uses: ['Fruit & vegetable shops', 'Supermarkets', 'Meat & fish counters', 'Sweet shops'],
   },
   {
-    slug: 'platform-scales', name: 'Platform & Industrial Scales', short: 'Platform',
+    slug: 'platform-scales', name: 'Platform & industrial scales', short: 'Platform',
     plate: 'bg-charcoal', hero: 'platform-diamond',
     range: '50 kg and up',
     intro: 'Heavy-duty platform scales for warehouses, factories and loading bays. Diamond-plate or stainless platforms, column-mounted indicators and a strong backrest frame.',
     uses: ['Manufacturing units', 'Warehouses & godowns', 'Logistics & courier hubs', 'Grain & produce mandis', 'Scrap & recycling'],
   },
   {
-    slug: 'jewellery-scales', name: 'Jewellery & Precision Scales', short: 'Jewellery',
+    slug: 'jewellery-scales', name: 'Jewellery & precision scales', short: 'Jewellery',
     plate: 'bg-soft', hero: null,
     range: 'Fine readability',
     intro: 'Jewellery scales, precision balances and pocket scales for gold, silver, gems, laboratories and pharmacies.',
@@ -87,7 +87,7 @@ export const categories = [
     uses: ['Factories & plants', 'Mandis & cold storage', 'Mines & quarries', 'Logistics yards'],
   },
   {
-    slug: 'load-cells', name: 'Load Cells & Indicators', short: 'Load cells',
+    slug: 'load-cells', name: 'Load cells & indicators', short: 'Load cells',
     plate: 'bg-orange', hero: null,
     range: 'Sensors & displays',
     intro: 'Replacement and OEM load cells and weighing indicators for weighbridges, platform scales, tanks, hoppers and machines.',
@@ -95,7 +95,7 @@ export const categories = [
     uses: ['Weighbridge repair', 'Tank & silo weighing', 'Machine builders', 'Platform scale upgrades'],
   },
   {
-    slug: 'special-scales', name: 'Crane, Hanging & Special Scales', short: 'Special',
+    slug: 'special-scales', name: 'Crane, hanging & special scales', short: 'Special',
     plate: 'bg-cream', hero: null,
     range: 'Made for the job',
     intro: 'Crane scales, hanging scales, LPG cylinder scales, baby and personal scales, piece counting scales and barcode label printing scales.',

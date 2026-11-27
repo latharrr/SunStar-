@@ -26,7 +26,7 @@ if (form) form.addEventListener('submit', (e) => {
   if (f.get('message')) lines.push(`Message: ${f.get('message')}`);
   const url = `https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`;
   let link = form.querySelector('.enquiry__link');
-  if (!link) { link = document.createElement('a'); link.className = 'link-arrow enquiry__link'; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'Message ready: open WhatsApp →'; form.appendChild(link); }
+  if (!link) { link = document.createElement('a'); link.className = 'link-arrow enquiry__link'; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'Open WhatsApp with your message'; form.appendChild(link); }
   link.href = url;
   const w = window.open(url, '_blank', 'noopener');
   if (!w) link.focus();
