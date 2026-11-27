@@ -31,3 +31,24 @@ if (form) form.addEventListener('submit', (e) => {
   const w = window.open(url, '_blank', 'noopener');
   if (!w) link.focus();
 });
+
+// Hero carousel: scroll-snap track, arrow buttons, dots, gentle autoplay that stops on interaction.
+(() => {
+  const track = document.querySelector('[data-carousel]');
+  if (!track) return;
+  const root = track.closest('.hero-c');
+  const slides = [...track.children];
+  const dots = [...root.querySelectorAll('.hero-c__dots button')];
+  const idx = () => Math.round(track.scrollLeft / track.clientWidth);
+  const go = (i) => track.scrollTo({ left: ((i + slides.length) % slides.length) * track.clientWidth });
+  root.querySelector('[data-prev]').addEventListener('click', () => { stop(); go(idx() - 1); });
+  root.querySelector('[data-next]').addEventListener('click', () => { stop(); go(idx() + 1); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { stop(); go(i); }));
+  track.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { stop(); go(idx() + 1); } if (e.key === 'ArrowLeft') { stop(); go(idx() - 1); } });
+  let t;
+  track.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(() => { const i = idx(); dots.forEach((d, j) => d.setAttribute('aria-selected', String(i === j))); }, 60); }, { passive: true });
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let timer = reduce ? null : setInterval(() => go(idx() + 1), 6000);
+  function stop() { clearInterval(timer); timer = null; }
+  ['pointerdown', 'wheel', 'touchstart'].forEach((ev) => track.addEventListener(ev, stop, { passive: true }));
+})();

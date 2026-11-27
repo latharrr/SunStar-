@@ -192,10 +192,10 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 </head>
 <body${home ? ' class="home"' : ''}>
 <a class="skip" href="#main">Skip to content</a>
-<div class="utility"><div class="wrap utility__in"><p>Weighing scales since ${site.founded} · Bahadurgarh, Haryana</p><ul><li><a href="${tel}">Call ${esc(site.phoneDisplay)}</a></li><li><a href="https://sunstar-catalog.vercel.app/catalog.pdf">Catalogue (PDF)</a></li><li><a href="${r}contact/">Contact</a></li></ul></div></div>
+<div class="utility"><div class="wrap utility__in"><p>Weighing scale manufacturer since ${site.founded}, Bahadurgarh, Haryana</p><ul><li><a href="${r}pan-india-supply/">Dealers in Jammu and Rajasthan</a></li><li><a href="${r}contact/">Contact</a></li></ul></div></div>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="40" height="40"><span class="wordmark__name">Sunstar <span>Systems</span></span></a>
+    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="34" height="34"><span class="wordmark__text"><span class="wordmark__name">Sunstar Systems</span><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <ul>
@@ -212,8 +212,8 @@ ${body(r)}
 <footer class="site-footer">
   <div class="wrap footer__grid">
     <div>
-      <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="40" height="40"><span class="wordmark__name">Sunstar <span>Systems</span></span></p>
-      <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Supplied across India from Bahadurgarh, Haryana.</p>
+      <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="34" height="34"><span class="wordmark__text"><span class="wordmark__name">Sunstar Systems</span><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></p>
+      <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Manufactured in Bahadurgarh, Haryana, and dispatched across India.</p>
     </div>
     <div>
       <h2>Products</h2>
@@ -259,21 +259,51 @@ page({
   desc: 'Digital, price computing, platform, floor and crane weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
   schema: [faqLd(faqs.common)],
   body: (r) => `
-<section class="banner" aria-labelledby="hero-title">
-  <div class="wrap">
-    <div class="banner__stage">
-      <ul class="banner__line" aria-hidden="true">
-        ${['ss-pf100', 'sst-30', 'ss-30', 'ss-fs500'].map((s) => { const p = prodBy[s]; return `<li class="banner__item banner__item--${s}"><img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async"></li>`; }).join('')}
-      </ul>
-      <img class="banner__crane" src="${r}assets/products/${prodBy['ss-cs1000'].img.file}-640.webp" alt="" width="${prodBy['ss-cs1000'].img.w}" height="${prodBy['ss-cs1000'].img.h}" aria-hidden="true">
-      <div class="banner__panel">
-        <img class="banner__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
-        <p><strong>Since ${site.founded}</strong>Made and serviced in Bahadurgarh</p>
+<section class="hero-c" aria-roledescription="carousel" aria-labelledby="hero-title">
+  <div class="hero-c__track" data-carousel tabindex="0" aria-label="Featured scales">
+    <article class="slide" aria-roledescription="slide" aria-label="1 of 3">
+      <div class="wrap slide__in">
+        <div class="slide__copy">
+          <img class="slide__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
+          <p class="slide__k">Since ${site.founded}, Bahadurgarh</p>
+          <h1 id="hero-title">Weighing scale manufacturer</h1>
+          <p class="slide__lede">Tabletop, price computing, platform and crane scales, built and calibrated in our Bahadurgarh workshop.</p>
+          <a class="btn btn--red" href="${r}products/">See all products</a>
+        </div>
+        <div class="slide__media slide__media--duo">${(() => { const p = prodBy['stainless-tabletop']; return `<img class="slide__img" src="${r}assets/products/${p.img.file}.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async">`; })()} ${(() => { const p = prodBy['sst-30']; return `<img class="slide__img slide__img--tall" src="${r}assets/products/${p.img.file}.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async">`; })()}</div>
       </div>
-      <div class="banner__caption"><h1 id="hero-title">Weighing scales for shops, factories and trucks</h1></div>
-    </div>
+    </article>
+    <article class="slide" aria-roledescription="slide" aria-label="2 of 3">
+      <div class="wrap slide__in">
+        <div class="slide__copy">
+          <p class="slide__k">SS-PF100</p>
+          <h2 class="slide__h">Platform Weighing Scale</h2>
+          <p class="slide__lede">600 × 600 mm diamond-plate platform, 100 to 300 kg, rechargeable battery.</p>
+          <a class="btn btn--red" href="${r}products/ss-pf100/">View the scale</a>
+        </div>
+        <div class="slide__media">${(() => { const p = prodBy['ss-pf100']; return `<img class="slide__img slide__img--tall" src="${r}assets/products/${p.img.file}.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async">`; })()}</div>
+      </div>
+    </article>
+    <article class="slide" aria-roledescription="slide" aria-label="3 of 3">
+      <div class="wrap slide__in">
+        <div class="slide__copy">
+          <p class="slide__k">SS-CS1000</p>
+          <h2 class="slide__h">Crane scales up to 5 tonnes</h2>
+          <p class="slide__lede">Hook-mounted, bright LED display and wireless remote, for factories and loading bays.</p>
+          <a class="btn btn--red" href="${r}products/ss-cs1000/">View the scale</a>
+        </div>
+        <div class="slide__media slide__media--hang">${(() => { const p = prodBy['ss-cs1000']; return `<img class="slide__img slide__img--hang" src="${r}assets/products/${p.img.file}.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async">`; })()}</div>
+      </div>
+    </article>
+  </div>
+  <button class="hero-c__btn hero-c__btn--prev" type="button" aria-label="Previous slide" data-prev>‹</button>
+  <button class="hero-c__btn hero-c__btn--next" type="button" aria-label="Next slide" data-next>›</button>
+  <div class="hero-c__dots" role="tablist" aria-label="Choose slide"><button type="button" role="tab" aria-selected="true" aria-label="Slide 1"></button><button type="button" role="tab" aria-selected="false" aria-label="Slide 2"></button><button type="button" role="tab" aria-selected="false" aria-label="Slide 3"></button></div>
+</section>
+
+<section class="intro-band"><div class="wrap">
     <div class="intro">
-      <p>For ${year - site.founded} years Sunstar Systems has supplied tabletop, price computing, platform, floor and crane scales, weighbridges and load cells to sweet shops, pharmacies, footwear makers and national grocery brands. Every scale comes with installation, calibration and service from our Bahadurgarh workshop, and we dispatch to every state.</p>
+      <p>Since ${site.founded}, Sunstar Systems has manufactured tabletop, price computing, platform, floor and crane scales, weighbridges and load cells for sweet shops, pharmacies, footwear makers and national grocery brands. Every scale is calibrated in our Bahadurgarh workshop and comes with installation and service. We dispatch to every state, with dealers in Jammu and Rajasthan.</p>
       <div class="intro__cta"><a class="btn" href="${waGeneral}">Get today’s price on WhatsApp</a><a class="textlink textlink--chev" href="${tel}">Call ${esc(site.phoneDisplay)}</a></div>
     </div>
   </div>
@@ -284,9 +314,9 @@ page({
     <h2 id="ind-title" class="h2">Products by industry</h2>
     <ul class="ind-cards">
       ${[
-        ['tabletop-scales', 'ss-30', 'Retail and grocery', 'Counter and tabletop scales for kirana stores, supermarkets and online grocery packing.'],
+        ['tabletop-scales', 'compact-tabletop', 'Retail and grocery', 'Counter and tabletop scales for kirana stores, supermarkets and online grocery packing.'],
         ['price-computing-scales', 'sst-30', 'Sweets and food shops', 'Price computing scales with a customer display, for mithai, dry fruit and bakery counters.'],
-        ['platform-scales', 'ss-fs500', 'Factories and warehouses', 'Platform and floor scales for production, stores and dispatch, from 100 kg to 2 tonnes.'],
+        ['platform-scales', 'ssp-50', 'Factories and warehouses', 'Platform and floor scales for production, stores and dispatch, from 100 kg to 2 tonnes.'],
         ['special-scales', 'ss-cs1000', 'Heavy lifting', 'Crane scales up to 5 tonnes, plus weighbridges for trucks.'],
       ].map(([slug, prod, h, d]) => { const p = prodBy[prod]; return `<li><a href="${r}${slug}/"><span class="ind-cards__img"><img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" loading="lazy" decoding="async"></span><span class="ind-cards__cap"><strong>${h}</strong><span>${d}</span><em>View scales</em></span></a></li>`; }).join('\n      ')}
     </ul>
@@ -295,7 +325,7 @@ page({
 
 <section class="clients-band" aria-labelledby="clients-title">
   <div class="wrap">
-    <h2 id="clients-title" class="clients-band__title">Trusted by brands across India</h2>
+    <h2 id="clients-title" class="clients-band__title">Our Top Clients</h2>
     <ul class="client-logos">${site.clients.map((c) => `<li><img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"></li>`).join('')}</ul>
   </div>
 </section>
@@ -319,7 +349,7 @@ page({
     <h2 id="why-title" class="display">Why buy from Sunstar.</h2>
     <ul class="rail">
       <li class="why-card"><p class="why-card__k">Price</p><h3>Today’s price on WhatsApp, the same day.</h3><p>Send the model or the weight you need. No forms, no waiting.</p></li>
-      <li class="why-card"><p class="why-card__k">Delivery</p><h3>Dispatched to every state.</h3><p>From Delhi NCR to South India, the North East and Jammu &amp; Kashmir.</p></li>
+      <li class="why-card"><p class="why-card__k">Delivery</p><h3>Dispatched to every state.</h3><p>From Delhi NCR to South India and the North East, with dealers in Jammu and Rajasthan.</p></li>
       <li class="why-card"><p class="why-card__k">Service</p><h3>Installation, calibration and repair.</h3><p>Spare load cells and indicators in stock. Service for all makes.</p></li>
       <li class="why-card"><p class="why-card__k">Since ${site.founded}</p><h3>${year - site.founded} years in Bahadurgarh.</h3><p>One shop in Vivekanand Nagar, trusted by shops, factories and brands.</p></li>
     </ul>
@@ -493,7 +523,7 @@ ${closing()}`,
 page({
   path: 'about/',
   title: 'About Sunstar Systems — Weighing Scales Since 1996',
-  desc: `Sunstar Systems has made, supplied and serviced weighing scales in Bahadurgarh, Haryana since ${site.founded}. Managing Director ${site.founder}.`,
+  desc: `Sunstar Systems has manufactured and serviced weighing scales in Bahadurgarh, Haryana since ${site.founded}. Managing Director ${site.founder}.`,
   crumbs: [{ name: 'About', path: 'about/' }],
   body: (r) => `
 ${pageHead({ h1: 'About Sunstar Systems', lede: `Sunstar Systems started in Bahadurgarh in ${site.founded}. The idea has not changed: a scale should be accurate, last for years and be priced fairly. Today we supply digital weighing scales, platform scales, weighbridges and load cells to shops, factories and brands across India.` })}
@@ -504,7 +534,7 @@ ${pageHead({ h1: 'About Sunstar Systems', lede: `Sunstar Systems started in Baha
       <tr><th scope="row">Established</th><td>${site.founded}</td></tr>
       <tr><th scope="row">Managing Director</th><td>${esc(site.founder)}</td></tr>
       <tr><th scope="row">Location</th><td>${esc(a.city)}, ${esc(a.region)}</td></tr>
-      <tr><th scope="row">Supply</th><td>All India</td></tr>
+      <tr><th scope="row">Supply</th><td>All India, with dealers in Jammu and Rajasthan</td></tr>
       <tr><th scope="row">Rating</th><td>${site.rating.value} out of 5 on ${site.rating.source} (${site.rating.count} ratings)</td></tr>
       <tr><th scope="row">GSTIN</th><td>${esc(site.gstin)}</td></tr>
       <tr><th scope="row">Payment</th><td>Cash, cheque or DD, Visa, Mastercard, RuPay</td></tr>
@@ -515,7 +545,7 @@ ${pageHead({ h1: 'About Sunstar Systems', lede: `Sunstar Systems started in Baha
   <div class="wrap">
     <h2 class="h2">What we do</h2>
     <ul class="ind">
-      <li><h3>Supply</h3><p>Tabletop, price computing, platform, jewellery and crane scales, weighbridges and load cells.</p></li>
+      <li><h3>Manufacturing</h3><p>Tabletop, price computing, platform, jewellery and crane scales, weighbridges and load cells.</p></li>
       <li><h3>Installation</h3><p>Platform scales and weighbridges set up and tested on site.</p></li>
       <li><h3>Calibration</h3><p>Scales checked and calibrated so every reading is right.</p></li>
       <li><h3>Repair and parts</h3><p>Service for all makes, with load cells, indicators and spares in stock.</p></li>
@@ -536,6 +566,7 @@ ${pageHead({ h1: 'Weighing scales delivered across India', lede: 'We pack and di
 <section class="band band--flush">
   <div class="wrap">
     <ul class="regions">${site.regions.map((g) => `<li><h2 class="h3">${esc(g.name)}</h2><p>${esc(g.places)}</p></li>`).join('')}</ul>
+    <p class="note">Sunstar has dealers in Jammu and Rajasthan. Ask us on WhatsApp for the dealer nearest you.</p>
   </div>
 </section>
 <section class="band">

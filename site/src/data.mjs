@@ -31,7 +31,7 @@ export const site = {
   ],
   // Client marks.
   clients: [ // named by Abhishek (Sunstar) on WhatsApp, 27 Nov 2026; logos from each brand's own site
-    { name: 'Gulab', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
+    { name: 'Gulab Rewri', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
     { name: 'bigbasket', logo: 'bigbasket', w: 470, h: 182, sector: 'Online grocery (Tata group)' },
     { name: 'Action', logo: 'action', w: 470, h: 63, sector: 'Footwear' },
     { name: 'Relaxo', logo: 'relaxo', w: 457, h: 89, sector: 'Footwear manufacturing' },
@@ -156,16 +156,16 @@ export const products = [
     ask: ['Rate & total functions', 'Power & battery backup'],
   },
   {
-    slug: 'ss-pf100', model: 'SS-PF100', wm: 'PF100', name: 'SS-PF100 Digital Platform Weighing Scale', cat: 'platform-scales',
+    slug: 'ss-pf100', model: 'SS-PF100', wm: 'PF100', name: 'SS-PF100 Platform Weighing Scale', cat: 'platform-scales',
     img: { file: 'platform-diamond', w: 874, h: 1369 }, plate: 'bg-charcoal',
     line: 'Diamond-plate steel platform with a handle frame, for loading bays and sacks that arrive by the hundred.',
     desc: 'Heavy-duty digital multifunction weighing scale with a robust steel platform and ergonomic handle frame. Rechargeable battery, tare and auto power-off.',
-    specs: [['Capacity', '100 / 200 / 300 kg'], ['Accuracy', '± 10 g'], ['Platform', 'MS diamond plate'], ['Frame', 'Tubular steel handle'], ['Power', 'Rechargeable battery'], ['Functions', 'Tare, auto power-off']],
-    ask: ['Platform size'],
+    specs: [['Capacity', '100 / 200 / 300 kg'], ['Accuracy', '± 10 g'], ['Platform size', '600 × 600 mm'], ['Platform', 'MS diamond plate'], ['Frame', 'Tubular steel handle'], ['Power', 'Rechargeable battery'], ['Functions', 'Tare, auto power-off']],
+    ask: [],
   },
   {
     slug: 'ss-fs500', model: 'SS-FS500', wm: 'FS500', name: 'SS-FS500 Industrial Floor Scale', cat: 'platform-scales',
-    img: { file: 'ss-fs500', w: 434, h: 227 }, plate: 'bg-cream',
+    img: null /* client: current photo wrong, replacement coming */, plate: 'bg-cream',
     line: 'Low floor platform for pallets, drums and bulk goods.',
     desc: 'Heavy-duty industrial floor scale with a diamond-plate platform designed for high-capacity weighing, with a separate indicator unit.',
     specs: [['Capacity', '500 / 1000 / 2000 kg'], ['Accuracy', '± 50 g'], ['Platform', 'MS checkered plate'], ['Build', 'Heavy-duty'], ['Indicator', 'Separate unit']],
@@ -176,8 +176,8 @@ export const products = [
     img: { file: 'ssp-50', w: 770, h: 1546 }, plate: 'bg-cream',
     line: 'Stainless platform, backrest and a raised indicator for parcels and sacks.',
     desc: 'A platform scale with a stainless steel top, tubular backrest and raised digital indicator. Ideal for parcels, sacks and dispatch.',
-    specs: [['Capacity', '50 kg'], ['Minimum', '100 g'], ['Readability (e)', '5 g'], ['Platform', 'Stainless steel'], ['Indicator', 'Raised LED']],
-    ask: ['Platform size', 'Higher capacities', 'Power & battery backup'],
+    specs: [['Capacity', '50 kg'], ['Minimum', '100 g'], ['Readability (e)', '5 g'], ['Platform', 'Stainless steel (SS)'], ['Platform size', '300 × 300 mm (12 in)'], ['Indicator', 'Raised LED']],
+    ask: ['Higher capacities', 'Power & battery backup'],
   },
   {
     slug: 'ss-cs1000', model: 'SS-CS1000', wm: 'CS1000', name: 'SS-CS1000 OCS Electronic Crane Scale', cat: 'special-scales',
@@ -208,7 +208,7 @@ export const products = [
 export const faqs = {
   common: [
     ['What is the price of a Sunstar weighing scale?', 'Prices depend on capacity, model and quantity. Message us on WhatsApp with the model and we reply with today’s price.'],
-    ['Do you deliver outside Haryana?', 'Yes. We dispatch across India, including South India, the North East and Jammu & Kashmir.'],
+    ['Do you deliver outside Haryana?', 'Yes. We dispatch across India, including South India, the North East and Jammu & Kashmir, and we have dealers in Jammu and Rajasthan.'],
     ['Where is your shop?', '49, Main Road, Vivekanand Nagar, near Metro Pillar No. 804, Bahadurgarh, Haryana 124507.'],
     ['Do you repair and calibrate scales?', 'Yes. We service, repair and calibrate weighing scales, and supply replacement load cells and indicators.'],
   ],
