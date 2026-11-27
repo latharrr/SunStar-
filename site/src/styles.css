@@ -463,3 +463,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .search-results .empty { padding: 10px 14px; color: var(--muted); font-size: 15px; }
 @media (max-width: 760px) { .search-btn { order: 0; margin-left: auto; } .menu-btn { order: 1; } }
 @media (max-width: 760px) { .search-results small { display: none; } .search-btn { width: 38px; height: 38px; } }
+/* Header wordmark: official SUNSTAR logotype from the seal */
+.seal { width: 38px; height: 38px; }
+.wordmark__text { gap: 3px; }
+.wordmark__logo { height: 24px; width: auto; }
+.wordmark__tag { font-size: 10.5px; font-weight: 600; color: var(--red-ink); letter-spacing: 0.02em; }
+@media (max-width: 760px) { .wordmark__logo { height: 20px; } .seal { width: 32px; height: 32px; } }

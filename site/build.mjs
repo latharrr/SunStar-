@@ -194,7 +194,7 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="34" height="34"><span class="wordmark__text"><span class="wordmark__name">Sunstar Systems</span><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></a>
+    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="38" height="38"><span class="wordmark__text"><img class="wordmark__logo" src="${r}assets/sunstar-wordmark.webp" alt="Sunstar Systems" width="600" height="142"><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></a>
     <button class="search-btn" type="button" aria-expanded="false" aria-controls="site-search" aria-label="Search products"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
@@ -226,7 +226,7 @@ ${body(r)}
 <footer class="site-footer">
   <div class="wrap footer__grid">
     <div>
-      <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="34" height="34"><span class="wordmark__text"><span class="wordmark__name">Sunstar Systems</span><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></p>
+      <p class="wordmark"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="38" height="38"><span class="wordmark__text"><img class="wordmark__logo" src="${r}assets/sunstar-wordmark.webp" alt="Sunstar Systems" width="600" height="142"><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></p>
       <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Manufactured in Bahadurgarh, Haryana, and dispatched across India.</p>
     </div>
     <div>
