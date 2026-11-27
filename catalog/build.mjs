@@ -173,6 +173,7 @@ const html = `<!doctype html>
     </form>
   </div>
 </section>
+<section class="clients" aria-labelledby="clients-t"><div class="wrap"><h2 id="clients-t" class="clients__t">Trusted by brands across India</h2><ul class="clients__row"><li><img src="assets/clients/gulab.webp" alt="Gulab" loading="lazy"></li><li><img src="assets/clients/bigbasket.webp" alt="bigbasket" loading="lazy"></li><li><img src="assets/clients/action.webp" alt="Action" loading="lazy"></li><li><img src="assets/clients/relaxo.webp" alt="Relaxo" loading="lazy"></li><li><img src="assets/clients/coral-drugs.webp" alt="Coral Drugs" loading="lazy"></li><li><img src="assets/clients/medplus.webp" alt="MedPlus" loading="lazy"></li></ul></div></section>
 </main>
 
 <footer class="footer">

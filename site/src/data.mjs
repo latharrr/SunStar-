@@ -29,14 +29,14 @@ export const site = {
     'https://www.justdial.com/Bahadurgarh-Haryana/Sunstar-Systems-Near-Metro-Pillar-No-804-Vivekanand-Nagar/9999P1276-1276-140725145758-Q8B9_BZDET',
     'https://sunstarsystems.tradeindia.com/',
   ],
-  // Client marks. Only list a brand once Sunstar confirms you may name it.
-  clients: [
-    { name: 'bigbasket', confirmed: true }, // stated by client in intake
-    { name: 'Client 2', confirmed: false },
-    { name: 'Client 3', confirmed: false },
-    { name: 'Client 4', confirmed: false },
-    { name: 'Client 5', confirmed: false },
-    { name: 'Client 6', confirmed: false },
+  // Client marks.
+  clients: [ // named by Abhishek (Sunstar) on WhatsApp, 27 Nov 2026; logos from each brand's own site
+    { name: 'Gulab', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
+    { name: 'bigbasket', logo: 'bigbasket', w: 470, h: 182, sector: 'Online grocery (Tata group)' },
+    { name: 'Action', logo: 'action', w: 470, h: 63, sector: 'Footwear' },
+    { name: 'Relaxo', logo: 'relaxo', w: 457, h: 89, sector: 'Footwear manufacturing' },
+    { name: 'Coral Drugs', logo: 'coral-drugs', w: 470, h: 83, sector: 'Pharmaceuticals' },
+    { name: 'MedPlus', logo: 'medplus', w: 470, h: 175, sector: 'Pharmacy retail' },
   ],
   regions: [
     { name: 'North India', places: 'Delhi NCR, Haryana, Punjab, Himachal Pradesh, Uttarakhand, Uttar Pradesh, Rajasthan' },

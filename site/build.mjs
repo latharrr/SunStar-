@@ -192,6 +192,7 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 </head>
 <body${home ? ' class="home"' : ''}>
 <a class="skip" href="#main">Skip to content</a>
+<div class="utility"><div class="wrap utility__in"><p>Weighing scales since ${site.founded} · Bahadurgarh, Haryana</p><ul><li><a href="${tel}">Call ${esc(site.phoneDisplay)}</a></li><li><a href="https://sunstar-catalog.vercel.app/catalog.pdf">Catalogue (PDF)</a></li><li><a href="${r}contact/">Contact</a></li></ul></div></div>
 <header class="site-header">
   <div class="wrap">
     <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="40" height="40"><span class="wordmark__name">Sunstar <span>Systems</span></span></a>
@@ -258,25 +259,45 @@ page({
   desc: 'Digital, price computing, platform, floor and crane weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
   schema: [faqLd(faqs.common)],
   body: (r) => `
-<section class="store-hero" aria-labelledby="hero-title">
-  <div class="wrap store-hero__in">
-    <div class="store-hero__copy">
-      <img class="store-hero__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
-      <h1 id="hero-title">Weighing scales for shops, factories and trucks.</h1>
-      <p class="lede">Made, supplied and serviced in Bahadurgarh since ${site.founded}. Rated ${site.rating.value} on ${site.rating.source}. Delivered to every state.</p>
+<section class="banner" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="banner__stage">
+      <ul class="banner__line" aria-hidden="true">
+        ${['ss-pf100', 'sst-30', 'ss-30', 'ss-fs500'].map((s) => { const p = prodBy[s]; return `<li class="banner__item banner__item--${s}"><img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async"></li>`; }).join('')}
+      </ul>
+      <img class="banner__crane" src="${r}assets/products/${prodBy['ss-cs1000'].img.file}-640.webp" alt="" width="${prodBy['ss-cs1000'].img.w}" height="${prodBy['ss-cs1000'].img.h}" aria-hidden="true">
+      <div class="banner__panel">
+        <img class="banner__seal" src="${r}assets/sunstar-seal.webp" alt="Sunstar, a quality product" width="640" height="640" fetchpriority="high">
+        <p><strong>Since ${site.founded}</strong>Made and serviced in Bahadurgarh</p>
+      </div>
+      <div class="banner__caption"><h1 id="hero-title">Weighing scales for shops, factories and trucks</h1></div>
     </div>
-    <aside class="help-card" aria-label="Talk to Sunstar">
-      <p class="help-card__title">Need help choosing a scale?</p>
-      <p>Tell us what you weigh. We reply with the right model and today’s price.</p>
-      <a class="btn" href="${waGeneral}">Chat on WhatsApp</a>
-      <a class="textlink textlink--chev" href="${tel}">Call ${esc(site.phoneDisplay)}</a>
-    </aside>
+    <div class="intro">
+      <p>For ${year - site.founded} years Sunstar Systems has supplied tabletop, price computing, platform, floor and crane scales, weighbridges and load cells to sweet shops, pharmacies, footwear makers and national grocery brands. Every scale comes with installation, calibration and service from our Bahadurgarh workshop, and we dispatch to every state.</p>
+      <div class="intro__cta"><a class="btn" href="${waGeneral}">Get today’s price on WhatsApp</a><a class="textlink textlink--chev" href="${tel}">Call ${esc(site.phoneDisplay)}</a></div>
+    </div>
   </div>
-  <nav class="wrap strip" aria-label="Shop by category">
-    <ul>
-      ${STRIP.map(([slug, label, prod]) => { const p = prod && prodBy[prod]; return `<li><a href="${r}${slug}/"><span class="strip__img">${p ? `<img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" loading="lazy" decoding="async">` : `<span class="strip__ph" aria-hidden="true">${esc(label.slice(0, 1))}</span>`}</span><span class="strip__label">${esc(label)}</span></a></li>`; }).join('\n      ')}
+</section>
+
+<section class="band band--tight industries" aria-labelledby="ind-title">
+  <div class="wrap">
+    <h2 id="ind-title" class="h2">Products by industry</h2>
+    <ul class="ind-cards">
+      ${[
+        ['tabletop-scales', 'ss-30', 'Retail and grocery', 'Counter and tabletop scales for kirana stores, supermarkets and online grocery packing.'],
+        ['price-computing-scales', 'sst-30', 'Sweets and food shops', 'Price computing scales with a customer display, for mithai, dry fruit and bakery counters.'],
+        ['platform-scales', 'ss-fs500', 'Factories and warehouses', 'Platform and floor scales for production, stores and dispatch, from 100 kg to 2 tonnes.'],
+        ['special-scales', 'ss-cs1000', 'Heavy lifting', 'Crane scales up to 5 tonnes, plus weighbridges for trucks.'],
+      ].map(([slug, prod, h, d]) => { const p = prodBy[prod]; return `<li><a href="${r}${slug}/"><span class="ind-cards__img"><img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" loading="lazy" decoding="async"></span><span class="ind-cards__cap"><strong>${h}</strong><span>${d}</span><em>View scales</em></span></a></li>`; }).join('\n      ')}
     </ul>
-  </nav>
+  </div>
+</section>
+
+<section class="clients-band" aria-labelledby="clients-title">
+  <div class="wrap">
+    <h2 id="clients-title" class="clients-band__title">Trusted by brands across India</h2>
+    <ul class="client-logos">${site.clients.map((c) => `<li><img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"></li>`).join('')}</ul>
+  </div>
 </section>
 
 <section class="band lineup" id="catalogue" aria-labelledby="products-title">
@@ -314,13 +335,7 @@ page({
   </div>
 </section>
 
-<section class="trust" aria-label="Clients">
-  <div class="wrap trust__in">
-    <p>Supplied to businesses including</p>
-    <ul class="logos">${site.clients.map((c) => `<li class="${c.confirmed ? '' : 'is-ph'}">${c.confirmed ? esc(c.name) : 'Client logo'}</li>`).join('')}</ul>
-    <a class="textlink textlink--chev" href="${r}clients/">Clients and industries</a>
-  </div>
-</section>
+
 
 ${faqBlock(faqs.common)}
 ${closing()}`,
@@ -448,7 +463,7 @@ page({
 ${pageHead({ h1: 'Clients and industries', lede: 'National brands, factories, warehouses and neighbourhood shops weigh on Sunstar. We supply single scales and bulk orders with a GST invoice.' })}
 <section class="band band--flush">
   <div class="wrap">
-    <ul class="logo-wall">${site.clients.map((c) => `<li class="${c.confirmed ? '' : 'is-ph'}">${c.confirmed ? `<span>${esc(c.name)}</span>` : '<span class="ph">Client logo</span>'}</li>`).join('')}</ul>
+    <ul class="logo-wall">${site.clients.map((c) => `<li><img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"><span>${esc(c.sector)}</span></li>`).join('')}</ul>
   </div>
 </section>
 <section class="band">
