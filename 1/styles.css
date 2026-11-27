@@ -388,3 +388,15 @@ main, .footer { position: relative; }
   background: radial-gradient(400px circle at var(--gx, 50%) var(--gy, 50%), rgb(255 255 255 / .35), transparent 60%);
 }
 .motion [data-tilt]:hover .card__link::after { opacity: 1; }
+
+/* De-template pass (added): sentence-case labels in the display face instead of tracked mono caps.
+   Motion, 3D and layout rules above are unchanged. */
+:root { --f-mono: "Inter Tight", system-ui, sans-serif; }
+.label, .spec, .card__cta, .cta__info, .logo-slot__flag, .readout__unit, .badge, .pill, .nav__menu,
+.footer__col a:not(.logo), .footer address, .footer__base, .pill, .nav__menu { text-transform: none; letter-spacing: 0; }
+.label { font-size: 14px; font-weight: 500; }
+@media (min-width: 768px) { .label { font-size: 14px; } }
+.spec, .card__cta, .cta__info { font-size: 14px; }
+.footer__col a:not(.logo), .footer address, .footer__base { font-size: 14px; }
+.badge { font-size: 10.5px; letter-spacing: .04em; }
+.pill, .nav__menu { font-size: 14px; font-weight: 600; }

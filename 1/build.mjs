@@ -23,7 +23,7 @@ const jsonld = JSON.stringify({
 }).replace(/</g, '\\u003c');
 
 const vars = {
-  name: esc(c.name), url: esc(c.url), phoneDisplay: esc(c.phoneDisplay), phoneE164: esc(c.phoneE164),
+  name: esc(c.name), url: esc(c.url), mainUrl: esc(c.mainUrl), phoneDisplay: esc(c.phoneDisplay), phoneE164: esc(c.phoneE164),
   whatsapp: esc(c.whatsapp), addressLine: esc(`${a.street}, ${a.city} ${a.postal}`), gstin: esc(c.gstin),
   founded: c.founded, year: new Date().getFullYear(), stats, jsonld,
 };

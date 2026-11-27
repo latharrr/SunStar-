@@ -1,6 +1,7 @@
 // Single source of truth. Edit here, then run `node build.mjs`.
 export default {
   name: 'Sunstar Systems', // TODO: confirm vs "Sunstar Sales"
+  mainUrl: 'https://sunstar-scales.vercel.app/', // TODO: switch to https://www.sunstarscales.com/ when the domain is live
   url: 'https://www.sunstarscales.com/experience/', // 3D experience page inside sunstarscales.com (noindex; main site is the canonical home)
   phoneDisplay: '09355349600',
   phoneE164: '+919355349600',
