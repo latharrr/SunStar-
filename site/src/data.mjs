@@ -90,8 +90,8 @@ export const categories = [
     slug: 'load-cells', name: 'Load cells & indicators', short: 'Load cells',
     plate: 'bg-orange', hero: null,
     range: 'Sensors & displays',
-    intro: 'Replacement and OEM load cells and weighing indicators for weighbridges, platform scales, tanks, hoppers and machines.',
-    types: ['Compression load cell', 'S-type load cell', 'Shear beam load cell', 'Single point load cell', 'Weighing indicator'],
+    intro: 'Replacement and OEM load cells, weighing indicators, motherboards and displays for weighbridges, platform scales, tanks, hoppers and machines. Most parts are available ex-stock.',
+    types: ['Compression load cell', 'S-type load cell', 'Shear beam load cell', 'Single point load cell', 'Weighing indicator', 'Motherboard (PCB) and display'],
     uses: ['Weighbridge repair', 'Tank & silo weighing', 'Machine builders', 'Platform scale upgrades'],
   },
   {
@@ -101,6 +101,14 @@ export const categories = [
     intro: 'Crane scales, hanging scales, LPG cylinder scales, baby and personal scales, piece counting scales and barcode label printing scales.',
     types: ['Crane scale', 'Hanging scale', 'LPG cylinder scale', 'Baby / medical scale', 'Personal scale', 'Piece counting scale', 'Barcode label printing scale', 'GSM testing machine'],
     uses: ['Factories & stores', 'Gas agencies', 'Clinics & hospitals', 'Retail billing'],
+  },
+  {
+    slug: 'automation-instrumentation', name: 'Automation & instrumentation', short: 'Automation',
+    plate: 'bg-soft', hero: null,
+    range: 'Systems & spares',
+    intro: 'Weighbridge conversion kits with software, milk weighing systems, auto filling machines and tensile testing machines, plus load cells, motherboards and displays in stock.',
+    types: ['Weighbridge conversion kit with software', 'Milk weighing system', 'Auto filling machine', 'Tensile testing machine', 'Load cells, motherboards and displays (ex-stock)'],
+    uses: ['Weighbridge upgrades', 'Dairies & milk collection', 'Packing & filling lines', 'Quality testing labs'],
   },
 ];
 
@@ -152,7 +160,7 @@ export const products = [
     img: { file: 'sst-30', w: 928, h: 1196 }, plate: 'bg-orange',
     line: 'Raised pole display so the customer reads the same number you do.',
     desc: 'A multifunction scale with a stainless steel pan and a raised pole display facing the customer. Made for retail counters that weigh and bill all day.',
-    specs: [['Capacity', '30 kg'], ['Minimum', '100 g'], ['Readability (e)', '2 g'], ['Pan', 'Stainless steel'], ['Display', 'Front + pole LED']],
+    specs: [['Capacity', '30 kg'], ['Also available', 'SST-15, 15 kg'], ['Minimum', '100 g'], ['Readability (e)', '2 g'], ['Platter size', '250 × 350 mm'], ['Pan', 'Stainless steel'], ['Display', 'Front + pole LED']],
     ask: ['Rate & total functions', 'Power & battery backup'],
   },
   {
@@ -194,6 +202,22 @@ export const products = [
     desc: 'Rugged electronic crane scale with a bright green LED display for overhead weighing in factories, stores and loading areas. Rechargeable, with tare on the unit.',
     specs: [['Capacity', '1000 / 3000 / 5000 kg'], ['Accuracy', '± 0.5 kg'], ['Display', 'Bright green LED'], ['Keys', 'LED/RIG mode, On/Off tare'], ['Power', 'Rechargeable battery'], ['Housing', 'Rugged metal, orange']],
     ask: ['Battery backup'],
+  },
+  {
+    slug: 'pocket-hanging-scale', model: null, wm: 'Pocket', name: 'Pocket Hanging Scale', cat: 'special-scales',
+    img: null, plate: 'bg-soft',
+    line: 'Hand-held hook scale for cylinders, parcels, poultry and produce.',
+    desc: 'A digital pocket hanging scale with a fold-out handle and hook. Used for gas cylinders, courier and cargo parcels, poultry farms, vegetable and fruit markets, homes and offices.',
+    specs: [['Capacity', '50 / 60 / 150 kg'], ['Type', 'Hand-held hook scale'], ['Display', 'Digital LCD']],
+    ask: ['Readability', 'Battery'],
+  },
+  {
+    slug: 'pocket-scale', model: null, wm: 'Pocket', name: 'Pocket Scale', cat: 'jewellery-scales',
+    img: null, plate: 'bg-soft',
+    line: 'Fold-shut pocket balance for gold, silver, gems and samples.',
+    desc: 'A compact digital pocket scale with a hinged cover, for jewellery, gems, medicines and lab samples.',
+    specs: [['Capacity / readability', '100 g / 10 mg, 200 g / 10 mg, 300 g / 50 mg, 500 g / 50 mg'], ['Type', 'Pocket, hinged cover'], ['Display', 'Digital LCD']],
+    ask: ['Calibration weight', 'Battery'],
   },
   {
     slug: 'ss-eb200', model: 'SS-EB200', wm: 'EB200', name: 'SS-EB200 Electronic Precision Balance', cat: 'jewellery-scales',
@@ -266,8 +290,14 @@ export const gallery = [
 
 // Model ranges from Sunstar's printed brochure (photographed 27 Nov 2026).
 export const ranges = {
+  sstNew: {
+    title: 'Table Top, new model (with pole display)', cats: ['price-computing-scales'], products: ['sst-30'],
+    cols: ['Model', 'Capacity', 'Accuracy', 'Platter size'],
+    rows: [['SST-15', '15 kg', '1 g', '250 × 350 mm'], ['SST-30', '30 kg', '2 g', '250 × 350 mm']],
+    notes: [],
+  },
   sst: {
-    title: 'Silver Scale range (water proof)', cats: ['tabletop-scales'], products: ['stainless-tabletop'],
+    title: 'Silver Scale range, water proof', cats: ['tabletop-scales'], products: ['stainless-tabletop'],
     cols: ['Model', 'Capacity', 'Accuracy', 'Platter size'],
     rows: [['SST-2', '2 kg', '0.1 g', '175 × 225 mm'], ['SST-5', '5 kg', '0.2, 0.5 g', '175 × 225 mm'], ['SST-10', '10 kg', '0.5 g', '175 × 225 mm'], ['SST-20', '15 kg', '1 g', '175 × 225 mm'], ['SST-30', '30 kg', '2 g', '175 × 225 mm']],
     notes: [],
