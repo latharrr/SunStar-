@@ -164,6 +164,14 @@ export const products = [
     ask: [],
   },
   {
+    slug: 'kissan-platform', model: 'Kissan', wm: 'Kissan', name: 'Kissan Model Platform Scale', cat: 'platform-scales',
+    img: { file: 'kissan-platform', w: 697, h: 914 }, plate: 'bg-charcoal',
+    line: 'Compact diamond-plate platform with a handle, built for mandis, godowns and farm produce.',
+    desc: 'The Kissan model is a compact platform scale with a black diamond-plate top, tubular handle frame and a bright green LED display. Adjustable feet keep it level on shop and godown floors.',
+    specs: [['Platform', 'MS diamond plate, black'], ['Frame', 'Tubular steel handle'], ['Display', 'Green LED'], ['Keys', 'M+, MR, Mode, Zero'], ['Feet', 'Adjustable']],
+    ask: ['Capacity', 'Platform size', 'Power & battery backup'],
+  },
+  {
     slug: 'ss-fs500', model: 'SS-FS500', wm: 'FS500', name: 'SS-FS500 Industrial Floor Scale', cat: 'platform-scales',
     img: null /* client: current photo wrong, replacement coming */, plate: 'bg-cream',
     line: 'Low floor platform for pallets, drums and bulk goods.',
@@ -181,10 +189,10 @@ export const products = [
   },
   {
     slug: 'ss-cs1000', model: 'SS-CS1000', wm: 'CS1000', name: 'SS-CS1000 OCS Electronic Crane Scale', cat: 'special-scales',
-    img: { file: 'ss-cs1000', w: 372, h: 763 }, plate: 'bg-cream',
+    img: { file: 'ss-cs1000-orange', w: 572, h: 1264 }, plate: 'bg-cream',
     line: 'Hangs from the hook, reads on a bright LED display.',
-    desc: 'Rugged electronic crane scale with a bright LED display for overhead weighing in factories, stores and loading areas. Wireless remote control.',
-    specs: [['Capacity', '1000 / 3000 / 5000 kg'], ['Accuracy', '± 0.5 kg'], ['Display', 'Bright LED'], ['Control', 'Wireless remote'], ['Housing', 'Rugged, heat resistant']],
+    desc: 'Rugged electronic crane scale with a bright green LED display for overhead weighing in factories, stores and loading areas. Rechargeable, with tare on the unit.',
+    specs: [['Capacity', '1000 / 3000 / 5000 kg'], ['Accuracy', '± 0.5 kg'], ['Display', 'Bright green LED'], ['Keys', 'LED/RIG mode, On/Off tare'], ['Power', 'Rechargeable battery'], ['Housing', 'Rugged metal, orange']],
     ask: ['Battery backup'],
   },
   {
@@ -216,6 +224,8 @@ export const faqs = {
 
 // Real photos for the home page gallery (assets/gallery/*.webp, 1000x1000)
 export const gallery = [
+  { "file": "shop-kissan-1", "caption": "Kissan model platform scales at our Bahadurgarh shop" },
+  { "file": "shop-kissan-2", "caption": "Kissan model, diamond-plate top and handle" },
   {
     "file": "shop-platform-1",
     "caption": "SSP-50 platform scale at our Bahadurgarh shop"

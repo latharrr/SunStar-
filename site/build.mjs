@@ -303,7 +303,7 @@ page({
         <div class="slide__copy">
           <p class="slide__k">SS-CS1000</p>
           <h2 class="slide__h">Crane scales up to 5 tonnes</h2>
-          <p class="slide__lede">Hook-mounted, bright LED display and wireless remote, for factories and loading bays.</p>
+          <p class="slide__lede">Hook-mounted, bright green LED display and rechargeable battery, for factories and loading bays.</p>
           <a class="btn btn--red" href="${r}products/ss-cs1000/">View the scale</a>
         </div>
         <div class="slide__media slide__media--hang">${(() => { const p = prodBy['ss-cs1000']; return `<img class="slide__img slide__img--hang" src="${r}assets/products/${p.img.file}.webp" alt="" width="${p.img.w}" height="${p.img.h}" decoding="async">`; })()}</div>
@@ -330,7 +330,7 @@ page({
       ${[
         ['tabletop-scales', 'compact-tabletop', 'Retail and grocery', 'Counter and tabletop scales for kirana stores, supermarkets and online grocery packing.'],
         ['price-computing-scales', 'sst-30', 'Sweets and food shops', 'Price computing scales with a customer display, for mithai, dry fruit and bakery counters.'],
-        ['platform-scales', 'ssp-50', 'Factories and warehouses', 'Platform and floor scales for production, stores and dispatch, from 100 kg to 2 tonnes.'],
+        ['platform-scales', 'kissan-platform', 'Factories and warehouses', 'Platform and floor scales for production, stores and dispatch, from 100 kg to 2 tonnes.'],
         ['special-scales', 'ss-cs1000', 'Heavy lifting', 'Crane scales up to 5 tonnes, plus weighbridges for trucks.'],
       ].map(([slug, prod, h, d]) => { const p = prodBy[prod]; return `<li><a href="${r}${slug}/"><span class="ind-cards__img"><img src="${r}assets/products/${p.img.file}-640.webp" alt="" width="${p.img.w}" height="${p.img.h}" loading="lazy" decoding="async"></span><span class="ind-cards__cap"><strong>${h}</strong><span>${d}</span><em>View scales</em></span></a></li>`; }).join('\n      ')}
     </ul>
