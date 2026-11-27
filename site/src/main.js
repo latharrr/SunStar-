@@ -78,3 +78,111 @@ if (form) form.addEventListener('submit', (e) => {
   input.addEventListener('input', render);
   panel.querySelector('form').addEventListener('submit', (e) => { const first = list.querySelector('a'); if (first) { e.preventDefault(); location.href = first.href; } });
 })();
+
+// Sunstar assistant: a short guided chat that drafts a WhatsApp message. No server, nothing stored.
+(() => {
+  const root = document.querySelector('[data-bot]');
+  if (!root) return;
+  const data = JSON.parse(document.getElementById('bot-data').textContent);
+  const launch = root.querySelector('.bot__launch');
+  const panel = root.querySelector('.bot__panel');
+  const log = root.querySelector('.bot__log');
+  const chips = root.querySelector('.bot__chips');
+  const form = root.querySelector('.bot__form');
+  const input = form.querySelector('input');
+  const wa = root.dataset.wa;
+  const tel = root.dataset.tel;
+  const pageProduct = root.dataset.product || '';
+  const ans = {};
+  let step = null;
+  let started = false;
+
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const scroll = () => { log.scrollTop = log.scrollHeight; };
+  const say = (text, who = 'bot') => { const li = document.createElement('li'); li.className = `bot__msg bot__msg--${who}`; li.textContent = text; log.append(li); scroll(); };
+  const setChips = (opts) => {
+    chips.innerHTML = '';
+    opts.forEach((o) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = o; b.addEventListener('click', () => answer(o)); chips.append(b); });
+  };
+
+  // Each step: question, optional chips, key to store, next step (fn or name). Free text always allowed.
+  const steps = {
+    intent: { q: 'Namaste! I can get you today’s price from the Sunstar team. What do you need?', c: ['Buy a scale', 'Repair or calibration', 'Bulk or company order', 'Something else'], key: 'intent',
+      next: (v) => (/repair|calib/i.test(v) ? 'repairWhat' : /bulk|company/i.test(v) ? 'company' : /else/i.test(v) ? 'question' : pageProduct ? 'confirmProduct' : 'cat') },
+    confirmProduct: { q: () => `Is it for the ${pageProduct}?`, c: ['Yes, this one', 'A different scale'], key: '_confirm',
+      next: (v) => (/yes/i.test(v) ? (ans.model = pageProduct, 'qty') : 'cat') },
+    cat: { q: 'Which type of scale?', c: () => [...data.cats.map((c) => c.short), 'Not sure'], key: 'type',
+      next: (v) => { const c = data.cats.find((x) => x.short === v); ans._cat = c; return c && c.items.length ? 'model' : 'capacity'; } },
+    model: { q: 'Any model in mind?', c: () => [...ans._cat.items, 'Help me choose'], key: 'model', next: (v) => (/help/i.test(v) ? (delete ans.model, 'capacity') : 'qty') },
+    capacity: { q: 'What is the most weight you need to weigh at once?', c: ['Up to 30 kg', '50 to 300 kg', '500 kg to 2 tonnes', 'Above 2 tonnes', 'Gold or silver (grams)'], key: 'capacity', next: 'qty' },
+    qty: { q: 'How many pieces?', c: ['1', '2 to 5', '6 to 20', 'More than 20'], key: 'qty', next: 'city' },
+    repairWhat: { q: 'Which scale needs service, and what is wrong with it?', c: ['Not switching on', 'Wrong reading', 'Needs calibration', 'Display not working'], key: 'issue', next: 'city' },
+    company: { q: 'What is your company name?', key: 'company', next: 'bulkWhat' },
+    bulkWhat: { q: 'Which scales, and roughly how many?', key: 'need', next: 'city' },
+    question: { q: 'Sure. Type your question below.', key: 'question', next: 'city' },
+    city: { q: 'Which city or area should we deliver or come to?', c: ['Bahadurgarh', 'Delhi NCR', 'Rohtak', 'Jammu', 'Rajasthan'], key: 'city', next: 'name' },
+    name: { q: 'Last one: your name?', c: ['Skip'], key: 'name', next: 'done' },
+  };
+
+  const draft = () => {
+    const L = ['Hi Sunstar,'];
+    if (/repair|calib/i.test(ans.intent)) L.push(`I need service for my weighing scale. Problem: ${ans.issue}.`);
+    else if (/bulk|company/i.test(ans.intent)) L.push(`This is ${ans.company}. We need a bulk quote for: ${ans.need}.`);
+    else if (/else/i.test(ans.intent)) L.push(ans.question);
+    else {
+      L.push('Please share today’s price for:');
+      if (ans.model) L.push(`• Model: ${ans.model}`); else if (ans.type && ans.type !== 'Not sure') L.push(`• Type: ${ans.type}`);
+      if (ans.capacity) L.push(`• Capacity: ${ans.capacity}`);
+      if (ans.qty) L.push(`• Quantity: ${ans.qty}`);
+    }
+    if (ans.city) L.push(`Location: ${ans.city}`);
+    if (ans.name && ans.name !== 'Skip') L.push(`Name: ${ans.name}`);
+    return L.join('\n');
+  };
+
+  const showDraft = () => {
+    say('Here is your message. Edit anything, then send it on WhatsApp.');
+    chips.innerHTML = '';
+    const li = document.createElement('li');
+    li.className = 'bot__draft';
+    li.innerHTML = `<label for="bot-draft">Message to Sunstar</label><textarea id="bot-draft">${esc(draft())}</textarea><div class="row"><a class="btn btn--wa" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn btn--line btn--sm" href="${tel}">Call instead</a><button class="btn btn--line btn--sm" type="button" data-restart>Start again</button></div>`;
+    const ta = li.querySelector('textarea');
+    const link = li.querySelector('.btn--wa');
+    const sync = () => { link.href = `https://wa.me/${wa}?text=${encodeURIComponent(ta.value)}`; };
+    ta.addEventListener('input', sync); sync();
+    li.querySelector('[data-restart]').addEventListener('click', restart);
+    log.append(li); scroll();
+    form.hidden = true;
+  };
+
+  const ask = (name) => {
+    step = name;
+    if (name === 'done') { showDraft(); return; }
+    const st = steps[name];
+    say(typeof st.q === 'function' ? st.q() : st.q);
+    setChips(st.c ? (typeof st.c === 'function' ? st.c() : st.c) : []);
+    input.value = ''; input.focus({ preventScroll: true });
+  };
+
+  function answer(v) {
+    v = v.trim();
+    if (!v || !step || step === 'done') return;
+    say(v, 'me');
+    const st = steps[step];
+    ans[st.key] = v;
+    const nx = typeof st.next === 'function' ? st.next(v) : st.next;
+    setTimeout(() => ask(nx), 250);
+  }
+
+  function restart() { Object.keys(ans).forEach((k) => delete ans[k]); log.innerHTML = ''; form.hidden = false; ask('intent'); }
+
+  const open = (v) => {
+    panel.hidden = !v; launch.setAttribute('aria-expanded', String(v));
+    if (v && !started) { started = true; ask('intent'); } else if (v) input.focus({ preventScroll: true });
+    if (!v) launch.focus();
+  };
+  launch.addEventListener('click', () => open(true));
+  root.querySelector('.bot__close').addEventListener('click', () => open(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) open(false); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); answer(input.value); });
+})();

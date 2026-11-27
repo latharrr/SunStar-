@@ -263,3 +263,26 @@ export const gallery = [
     "caption": "Compact digital scale"
   }
 ];
+
+// Model ranges from Sunstar's printed brochure (photographed 27 Nov 2026).
+export const ranges = {
+  sst: {
+    title: 'Silver Scale range (water proof)', cats: ['tabletop-scales'], products: ['stainless-tabletop'],
+    cols: ['Model', 'Capacity', 'Accuracy', 'Platter size'],
+    rows: [['SST-2', '2 kg', '0.1 g', '175 × 225 mm'], ['SST-5', '5 kg', '0.2, 0.5 g', '175 × 225 mm'], ['SST-10', '10 kg', '0.5 g', '175 × 225 mm'], ['SST-20', '15 kg', '1 g', '175 × 225 mm'], ['SST-30', '30 kg', '2 g', '175 × 225 mm']],
+    notes: [],
+  },
+  ssp: {
+    title: 'Platform scale range', cats: ['platform-scales'], products: ['ssp-50', 'ss-pf100', 'kissan-platform'],
+    cols: ['Model', 'Capacity', 'Accuracy', 'Platter size'],
+    rows: [
+      ['SSP-50', '50 kg', '5 g', '400 × 400, 500 × 500 mm'], ['SSP-100', '100 kg', '10 g', '400 × 400, 500 × 500 mm'],
+      ['SSP-150', '150 kg', '20 g', '500 × 500, 600 × 600 mm'], ['SSP-200', '200 kg', '20 g', '500 × 500, 600 × 600 mm'],
+      ['SSP-300', '300 kg', '50 g', '600 × 600, 600 × 800 mm'], ['SSP-500', '500 kg', '50 g', '600 × 600, 600 × 800, 800 × 800 mm'],
+      ['SSP-1000', '1000 kg', '100 g', '800 × 800, 1000 × 1000 mm'], ['SSP-1500', '1500 kg', '200 g', '1000 × 1000, 1200 × 1200 mm'],
+      ['SSP-2000', '2000 kg', '200 g', '1000 × 1000, 1200 × 1200 mm'], ['SSP-3000', '3000 kg', '500 g', '1200 × 1200, 1500 × 1500 mm'],
+      ['SSP-5000', '5000 kg', '500 g', '1500 × 1500 mm'],
+    ],
+    notes: ['600 × 800 mm and above: MS checker plate by default.', 'Platforms above 1200 mm use four load cells.', 'Other sizes made to your specification.', 'All models approved by the Government of India.'],
+  },
+};

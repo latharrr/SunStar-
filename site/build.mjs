@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync, rmSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
-import { site, categories, products, faqs, gallery } from './src/data.mjs';
+import { site, categories, products, faqs, gallery, ranges } from './src/data.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -116,6 +116,15 @@ const crumbsHtml = (r, crumbs) => `<nav class="crumbs wrap" aria-label="Breadcru
   ${crumbs.map((c, i) => (i === crumbs.length - 1 ? `<li aria-current="page">${esc(c.name)}</li>` : `<li><a href="${r}${c.path}">${esc(c.name)}</a></li>`)).join('\n  ')}
 </ol></nav>`;
 
+
+const rangeBlock = (rg) => `<section class="band band--tight range"><div class="wrap">
+    <h2 class="h3">${esc(rg.title)}</h2>
+    <div class="range__scroll"><table class="specs range__table"><thead><tr>${rg.cols.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>
+      ${rg.rows.map((row) => `<tr>${row.map((v, i) => (i ? `<td>${esc(v)}</td>` : `<th scope="row">${esc(v)}</th>`)).join('')}</tr>`).join('\n      ')}
+    </tbody></table></div>
+    ${rg.notes.length ? `<ul class="range__notes">${rg.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
+  </div></section>`;
+const rangesFor = (kind, slug) => Object.values(ranges).filter((rg) => rg[kind].includes(slug)).map(rangeBlock).join('\n');
 const pageHead = ({ h1, lede, cta }) => `<section class="page-head">
   <div class="wrap">
     <h1>${h1}</h1>
@@ -162,7 +171,7 @@ const NAV = [
 
 const LOGO = readFileSync(join(ROOT, 'assets/sunstar-logo.svg'), 'utf8').replace('<svg ', '<svg class="logo-svg" aria-hidden="true" ');
 const sitemap = [];
-function page({ path, title, desc, body, schema = [], crumbs, home = false, ogImage = 'assets/og.jpg', preload = '' }) {
+function page({ path, title, desc, body, schema = [], crumbs, home = false, ogImage = 'assets/og.jpg', preload = '', product = null }) {
   const depth = path ? path.split('/').filter(Boolean).length : 0;
   const r = '../'.repeat(depth);
   const graph = { '@context': 'https://schema.org', '@graph': [business, website, ...(crumbs ? [breadcrumbLd(crumbs)] : []), ...schema] };
@@ -244,7 +253,18 @@ ${body(r)}
   </div>
   <div class="wrap footer__base"><span>GSTIN ${esc(site.gstin)}</span><span>© ${site.founded}–${year} ${esc(site.name)}</span></div>
 </footer>
-<a class="wa-float" href="${waGeneral}">WhatsApp</a>
+<div class="bot" data-bot data-wa="${site.whatsappNumber}" data-tel="${tel}"${product ? ` data-product="${esc(product.name)}" data-product-cat="${product.cat}"` : ''}>
+  <button class="bot__launch" type="button" aria-expanded="false" aria-controls="bot-panel"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-linecap="round" stroke-width="2.6"/></svg><span>Ask Sunstar</span></button>
+  <section class="bot__panel" id="bot-panel" role="dialog" aria-label="Sunstar assistant" hidden>
+    <header class="bot__head"><img src="${r}assets/sunstar-seal.webp" alt="" width="36" height="36"><div><strong>Sunstar assistant</strong><span>Replies on WhatsApp, usually the same day</span></div><button class="bot__close" type="button" aria-label="Close chat">×</button></header>
+    <ol class="bot__log" aria-live="polite"></ol>
+    <div class="bot__chips"></div>
+    <form class="bot__form"><label class="sr-only" for="bot-in">Your answer</label><input id="bot-in" type="text" autocomplete="off" placeholder="Type your answer"><button type="submit" aria-label="Send">➤</button></form>
+  </section>
+  <script type="application/json" id="bot-data">${JSON.stringify({
+    cats: categories.map((c) => ({ slug: c.slug, short: c.short, name: c.name, items: products.filter((p) => p.cat === c.slug).map((p) => p.name) })),
+  }).replace(/</g, '\\u003c')}</script>
+</div>
 <script src="${r}main.js" defer></script>
 </body>
 </html>
@@ -340,7 +360,7 @@ page({
 <section class="clients-band" aria-labelledby="clients-title">
   <div class="wrap">
     <h2 id="clients-title" class="clients-band__title">Our Top Clients</h2>
-    <ul class="client-logos">${site.clients.map((c) => `<li><img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"></li>`).join('')}</ul>
+    <div class="marq" data-marq><ul class="client-logos">${[0, 1].map((k) => site.clients.map((c) => `<li${k ? ' aria-hidden="true"' : ''}><img src="${r}assets/clients/${c.logo}.webp" alt="${k ? '' : esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"></li>`).join('')).join('')}</ul></div>
   </div>
 </section>
 
@@ -434,6 +454,7 @@ ${pageHead({ h1: esc(c.name), lede: esc(c.intro), cta: `<a class="btn" href="${w
 ${list.length ? `<section class="band band--flush catalogue"><div class="wrap"><ul class="grid">
       ${list.map((p) => tile(r, p)).join('\n      ')}
     </ul></div></section>` : ''}
+${rangesFor('cats', c.slug)}
 ${c.types ? `<section class="band band--flush"><div class="wrap narrow">
     <h2 class="h3">Types we supply</h2>
     ${typeList(c)}
@@ -457,6 +478,7 @@ for (const p of products) {
     ...faqs.common.slice(1),
   ];
   page({
+    product: p,
     path: `products/${p.slug}/`,
     title: `${p.name} | Sunstar Systems`,
     desc: clip(`${p.name}${capOf(p) ? `, ${capOf(p)}` : ''}. ${p.line} Get today’s price on WhatsApp.`),
@@ -477,6 +499,7 @@ for (const p of products) {
     </div>
   </div>
 </section>
+${rangesFor('products', p.slug)}
 <section class="band band--tight facts-band">
   <div class="wrap facts">
     <p><strong>Price</strong>Shared on WhatsApp the same day you ask.</p>
