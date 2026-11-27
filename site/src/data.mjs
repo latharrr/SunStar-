@@ -34,6 +34,7 @@ export const site = {
   ],
   // Client marks.
   clients: [ // named by Abhishek (Sunstar) on WhatsApp, 27 Nov 2026; logos from each brand's own site
+    { name: 'Surya Roshni', logo: 'surya-roshni', w: 470, h: 108, sector: 'Steel pipes, lighting and fans' },
     { name: 'Gulab Rewri', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
     { name: 'bigbasket', logo: 'bigbasket', w: 470, h: 182, sector: 'Online grocery (Tata group)' },
     { name: 'Action', logo: 'action', w: 470, h: 63, sector: 'Footwear' },

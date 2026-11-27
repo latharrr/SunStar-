@@ -742,7 +742,7 @@ page({
   crumbs: [{ name: 'Weighing machine manufacturer', path: 'weighing-machine-manufacturer/' }],
   schema: [faqLd(faqs.common.slice(-1).concat([['Do you supply dealers and bulk buyers?', 'Yes. We supply dealers and companies with GST invoices and dispatch across India. We already have dealers in Jammu and Rajasthan.']]))],
   body: (r) => `
-${pageHead({ h1: 'Weighing machine manufacturer in Bahadurgarh, Haryana', lede: `Sunstar Systems designs, assembles and calibrates electronic weighing machines in Bahadurgarh. Since ${site.founded} we have supplied shops, factories and national brands such as bigbasket, Relaxo and Gulab Rewri.`, cta: `<a class="btn" href="${wa('Hi Sunstar, I want a bulk / dealer quote for weighing machines')}">Bulk or dealer quote</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
+${pageHead({ h1: 'Weighing machine manufacturer in Bahadurgarh, Haryana', lede: `Sunstar Systems designs, assembles and calibrates electronic weighing machines in Bahadurgarh. Since ${site.founded} we have supplied shops, factories and national brands such as Surya Roshni, bigbasket, Relaxo and Gulab Rewri.`, cta: `<a class="btn" href="${wa('Hi Sunstar, I want a bulk / dealer quote for weighing machines')}">Bulk or dealer quote</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
 <section class="band band--flush"><div class="wrap">
   <ul class="ind">
     <li><h3>Made in Bahadurgarh</h3><p>Every Sunstar scale is assembled, tested and calibrated in our own workshop before dispatch.</p></li>
