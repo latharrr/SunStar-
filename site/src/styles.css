@@ -334,3 +334,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .site-footer { padding-bottom: 96px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Real Sunstar wordmark (traced from the product label) */
+.wordmark { gap: 8px; align-items: baseline; }
+.logo-svg { display: block; width: 150px; height: auto; color: #1B3A8C; align-self: center; }
+.wordmark__sub { font-weight: 600; font-size: 13px; font-stretch: 100%; color: var(--muted); letter-spacing: 0; }
+.site-footer .logo-svg { color: #fff; }
+.site-footer .wordmark__sub { color: #AEB7BC; }
+/* Product with no photo yet */
+.noimg { display: grid; place-content: center; gap: 4px; text-align: center; width: min(100%, 420px); aspect-ratio: 4 / 3; margin: 0 auto; border: 2px dashed var(--steel-2); border-radius: var(--r); color: var(--muted); font-size: 14px; }
+.noimg strong { font-size: 1.4rem; font-stretch: 118%; color: var(--ink); }
+.tile__img .noimg, .fam__img .noimg { width: 74%; }

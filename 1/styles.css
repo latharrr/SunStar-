@@ -400,3 +400,8 @@ main, .footer { position: relative; }
 .footer__col a:not(.logo), .footer address, .footer__base { font-size: 14px; }
 .badge { font-size: 10.5px; letter-spacing: .04em; }
 .pill, .nav__menu { font-size: 14px; font-weight: 600; }
+
+/* Real Sunstar wordmark (traced from the product label) */
+.logo { align-items: baseline; gap: 8px; }
+.logo__svg { display: block; width: 120px; height: auto; align-self: center; }
+.logo__sub { font-size: 13px; opacity: .7; }

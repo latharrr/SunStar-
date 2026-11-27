@@ -2,6 +2,7 @@
 import { mkdirSync, writeFileSync, rmSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 import { site, categories, products, faqs } from './src/data.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -56,6 +57,7 @@ const capReadout = (cap) => {
 
 // ---------- components (all take `r` = relative prefix to site root) ----------
 const shot = (r, p, { sizes = '(max-width: 760px) 90vw, 50vw', lazy = true, h } = {}) => {
+  if (!p.img) return `<span class="noimg" role="img" aria-label="${esc(p.name)}, photo on request"><strong>${esc(p.model || p.name)}</strong><span>Photo on request</span></span>`;
   const ar = (p.img.w / p.img.h).toFixed(3);
   return `<span class="shot" style="--ar:${ar}${h ? `;--h:${h}` : ''}"><img src="${r}assets/products/${p.img.file}.webp" srcset="${r}assets/products/${p.img.file}-640.webp 640w, ${r}assets/products/${p.img.file}.webp ${p.img.w}w" sizes="${sizes}" width="${p.img.w}" height="${p.img.h}" alt="${esc(p.name)}, ${esc(site.brand)} ${esc(catBy[p.cat].name.toLowerCase())}"${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async"></span>`;
 };
@@ -78,7 +80,7 @@ const tile = (r, p) => `<li class="tile" data-cat="${p.cat}">
         <a class="tile__link" href="${r}products/${p.slug}/">
           <div class="tile__img">${shot(r, p, { sizes: '(max-width: 760px) 80vw, (max-width: 1100px) 40vw, 28vw' })}</div>
           <h3>${esc(p.name)}</h3>
-          <p class="tile__meta">${esc(catBy[p.cat].name)}${capOf(p) ? `, up to ${esc(capOf(p))}` : ''}</p>
+          <p class="tile__meta">${esc(catBy[p.cat].name)}${capOf(p) ? (capOf(p).includes('/') ? `, ${esc(capOf(p))}` : `, up to ${esc(capOf(p))}`) : ''}</p>
         </a>
       </li>`;
 
@@ -156,6 +158,7 @@ const NAV = [
   ['contact/', 'Contact'],
 ];
 
+const LOGO = readFileSync(join(ROOT, 'assets/sunstar-logo.svg'), 'utf8').replace('<svg ', '<svg class="logo-svg" aria-hidden="true" ');
 const sitemap = [];
 function page({ path, title, desc, body, schema = [], crumbs, home = false, ogImage = 'assets/og.jpg', preload = '' }) {
   const depth = path ? path.split('/').filter(Boolean).length : 0;
@@ -189,7 +192,7 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><span class="wordmark__dot" aria-hidden="true"></span>Sunstar Systems</a>
+    <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home">${LOGO}<span class="wordmark__sub">Systems</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <ul>
@@ -206,7 +209,7 @@ ${body(r)}
 <footer class="site-footer">
   <div class="wrap footer__grid">
     <div>
-      <p class="wordmark"><span class="wordmark__dot" aria-hidden="true"></span>Sunstar Systems</p>
+      <p class="wordmark">${LOGO}<span class="wordmark__sub">Systems</span></p>
       <p class="footer__note">Weighing scales, weighbridges and load cells since ${site.founded}. Supplied across India from Bahadurgarh, Haryana.</p>
     </div>
     <div>
@@ -237,7 +240,7 @@ ${body(r)}
 
 // ---------- pages ----------
 const hero = prodBy['ss-30'];
-const featured = ['ss-30', 'stainless-tabletop', 'sst-30', 'platform-diamond'].map((s) => prodBy[s]);
+const featured = ['ss-30', 'stainless-tabletop', 'sst-30', 'ss-pf100'].map((s) => prodBy[s]);
 const PLATE_TONE = { 'bg-cream': 'tone-steel', 'bg-soft': 'tone-white', 'bg-charcoal': 'tone-dark', 'bg-orange': 'tone-orange' };
 
 // HOME
@@ -414,7 +417,7 @@ for (const p of products) {
     desc: clip(`${p.name}${capOf(p) ? `, ${capOf(p)}` : ''}. ${p.line} Get today’s price on WhatsApp.`),
     crumbs: [{ name: 'Products', path: 'products/' }, { name: c.name, path: `${c.slug}/` }, { name: p.model || p.name, path: `products/${p.slug}/` }],
     schema: [faqLd(items)],
-    ogImage: `assets/products/${p.img.file}.webp`,
+    ogImage: p.img ? `assets/products/${p.img.file}.webp` : 'assets/og.jpg',
     body: (r) => `
 <section class="plate plate--page ${PLATE_TONE[p.plate]}" aria-labelledby="p-title">
   <div class="wrap plate__in">
