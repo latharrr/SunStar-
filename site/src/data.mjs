@@ -33,14 +33,20 @@ export const site = {
     'https://sunstarsystems.tradeindia.com/',
   ],
   // Client marks.
-  clients: [ // named by Abhishek (Sunstar) on WhatsApp, 27 Nov 2026; logos from each brand's own site
+  clients: [ // named by Abhishek (Sunstar), 27 Nov 2026: all have bought from and are serviced by Sunstar. logo: null = name tile until the logo file arrives
     { name: 'Surya Roshni', logo: 'surya-roshni', w: 470, h: 108, sector: 'Steel pipes, lighting and fans' },
-    { name: 'Gulab Rewri', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
-    { name: 'bigbasket', logo: 'bigbasket', w: 470, h: 182, sector: 'Online grocery (Tata group)' },
-    { name: 'Action', logo: 'action', w: 470, h: 63, sector: 'Footwear' },
+    { name: 'Parle-G', logo: 'parle-g', w: 206, h: 200, sector: 'Biscuits and food' },
+    { name: 'HNG', logo: null, full: 'Hindusthan National Glass', sector: 'Container glass' },
+    { name: 'Aqualite', logo: 'aqualite', w: 470, h: 122, sector: 'Footwear' },
     { name: 'Relaxo', logo: 'relaxo', w: 457, h: 89, sector: 'Footwear manufacturing' },
+    { name: 'bigbasket', logo: 'bigbasket', w: 470, h: 182, sector: 'Online grocery (Tata group)' },
+    { name: 'Gulab Rewri', logo: 'gulab', w: 230, h: 171, sector: 'Sweets, rewri and gajak, Delhi' },
+    { name: 'Bansal Steel & Power', logo: 'bansal', w: 363, h: 200, sector: 'Steel wire' },
+    { name: 'Action', logo: 'action', w: 470, h: 63, sector: 'Footwear' },
+    { name: 'Today Footwear', logo: null, full: 'Today Footwear', sector: 'Footwear' },
     { name: 'Coral Drugs', logo: 'coral-drugs', w: 470, h: 83, sector: 'Pharmaceuticals' },
     { name: 'MedPlus', logo: 'medplus', w: 470, h: 175, sector: 'Pharmacy retail' },
+    { name: 'Thakkar Chemical', logo: null, full: 'Thakkar Chemical', sector: 'Chemicals' },
   ],
   regions: [
     { name: 'North India', places: 'Delhi NCR, Haryana, Punjab, Himachal Pradesh, Uttarakhand, Uttar Pradesh, Rajasthan' },
@@ -68,7 +74,7 @@ export const categories = [
     uses: ['Fruit & vegetable shops', 'Supermarkets', 'Meat & fish counters', 'Sweet shops'],
   },
   {
-    slug: 'platform-scales', name: 'Platform & industrial scales', short: 'Platform',
+    slug: 'platform-scales', name: 'Industrial platform scales', short: 'Platform',
     plate: 'bg-charcoal', hero: 'ss-pf100',
     range: '50 kg and up',
     intro: 'Heavy-duty platform scales for warehouses, factories and loading bays. Diamond-plate or stainless platforms, column-mounted indicators and a strong backrest frame.',
@@ -224,11 +230,19 @@ export const products = [
     ask: ['Calibration weight', 'Battery'],
   },
   {
+    slug: 'jewellery-precision-scale', model: 'S-TT', wm: 'S-TT', name: 'S-TT Jewellery Precision Scale', cat: 'jewellery-scales',
+    img: { file: 'jewellery-stt', w: 1084, h: 1160 }, plate: 'bg-soft',
+    line: 'Bright green display and a stainless pan for gold, silver and gems.',
+    desc: 'An electronic precision balance for jewellers and labs, with a round stainless pan, bright green LED display, spirit level, and piece counting. Weighs in grams, carats, ounces and pounds.',
+    specs: [['Display', 'Green LED'], ['Units', 'g, ct, oz, lb'], ['Keys', 'Unit, Fun / PCS, Cal / Tare'], ['Levelling', 'Spirit level'], ['Power', 'Rechargeable battery']],
+    ask: ['Capacity', 'Readability'],
+  },
+  {
     slug: 'ss-eb200', model: 'SS-EB200', wm: 'EB200', name: 'SS-EB200 Electronic Precision Balance', cat: 'jewellery-scales',
-    img: null, plate: 'bg-soft',
+    img: { file: 'precision-balance', w: 792, h: 1415 }, plate: 'bg-soft',
     line: 'Glass wind shield for readings to a thousandth of a gram.',
     desc: 'High-precision electronic analytical balance with a glass wind-shield enclosure for laboratories and jewellery. Weighs in g, tola and carat.',
-    specs: [['Capacity', '200 / 300 / 500 g'], ['Accuracy', '± 0.001 g'], ['Enclosure', 'Glass wind shield'], ['Units', 'g, tola, ct']],
+    specs: [['Capacity', '200 / 300 / 500 g'], ['Accuracy', '± 0.001 g'], ['Enclosure', 'Glass wind shield, sliding doors'], ['Units', 'g, ct, oz, lb'], ['Keys', 'Fun, Cal, Unit, PCS, Tare'], ['Electronics', '24-bit, with spirit level']],
     ask: ['Pan size', 'Power'],
   },
   {

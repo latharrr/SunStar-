@@ -294,7 +294,7 @@ ${body(r)}
 const CAT_TITLE = {
   'tabletop-scales': 'Tabletop Weighing Machine in Bahadurgarh | Sunstar',
   'price-computing-scales': 'Price Computing Scale in Bahadurgarh | Sunstar',
-  'platform-scales': 'Platform Weighing Machine in Bahadurgarh | Sunstar',
+  'platform-scales': 'Industrial Platform Scales in Bahadurgarh | Sunstar',
   'jewellery-scales': 'Jewellery Weighing Scale in Bahadurgarh | Sunstar',
   weighbridges: 'Weighbridge (Dharam Kanta) in Bahadurgarh | Sunstar',
   'load-cells': 'Load Cells & Weighing Indicators, Bahadurgarh | Sunstar',
@@ -385,7 +385,7 @@ page({
 <section class="clients-band" aria-labelledby="clients-title">
   <div class="wrap">
     <h2 id="clients-title" class="clients-band__title">Our Top Clients</h2>
-    <div class="marq" data-marq><ul class="client-logos">${[0, 1].map((k) => site.clients.map((c) => `<li${k ? ' aria-hidden="true"' : ''}><img src="${r}assets/clients/${c.logo}.webp" alt="${k ? '' : esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"></li>`).join('')).join('')}</ul></div>
+    <div class="marq" data-marq><ul class="client-logos">${[0, 1].map((k) => site.clients.map((c) => `<li${k ? ' aria-hidden="true"' : ''}>${c.logo ? `<img src="${r}assets/clients/${c.logo}.webp" alt="${k ? '' : esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async">` : `<span class="client-name">${esc(c.full || c.name)}</span>`}</li>`).join('')).join('')}</ul></div>
   </div>
 </section>
 
@@ -555,7 +555,7 @@ page({
 ${pageHead({ h1: 'Clients and industries', lede: 'National brands, factories, warehouses and neighbourhood shops weigh on Sunstar. We supply single scales and bulk orders with a GST invoice.' })}
 <section class="band band--flush">
   <div class="wrap">
-    <ul class="logo-wall">${site.clients.map((c) => `<li><img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async"><span>${esc(c.sector)}</span></li>`).join('')}</ul>
+    <ul class="logo-wall">${site.clients.map((c) => `<li>${c.logo ? `<img src="${r}assets/clients/${c.logo}.webp" alt="${esc(c.name)}" width="${c.w}" height="${c.h}" loading="lazy" decoding="async">` : `<strong class="client-name">${esc(c.full || c.name)}</strong>`}<span>${esc(c.sector)}</span></li>`).join('')}</ul>
   </div>
 </section>
 <section class="band">
@@ -742,7 +742,7 @@ page({
   crumbs: [{ name: 'Weighing machine manufacturer', path: 'weighing-machine-manufacturer/' }],
   schema: [faqLd(faqs.common.slice(-1).concat([['Do you supply dealers and bulk buyers?', 'Yes. We supply dealers and companies with GST invoices and dispatch across India. We already have dealers in Jammu and Rajasthan.']]))],
   body: (r) => `
-${pageHead({ h1: 'Weighing machine manufacturer in Bahadurgarh, Haryana', lede: `Sunstar Systems designs, assembles and calibrates electronic weighing machines in Bahadurgarh. Since ${site.founded} we have supplied shops, factories and national brands such as Surya Roshni, bigbasket, Relaxo and Gulab Rewri.`, cta: `<a class="btn" href="${wa('Hi Sunstar, I want a bulk / dealer quote for weighing machines')}">Bulk or dealer quote</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
+${pageHead({ h1: 'Weighing machine manufacturer in Bahadurgarh, Haryana', lede: `Sunstar Systems designs, assembles and calibrates electronic weighing machines in Bahadurgarh. Since ${site.founded} we have supplied shops, factories and national brands such as Surya Roshni, Parle-G, HNG, Aqualite, Relaxo and bigbasket.`, cta: `<a class="btn" href="${wa('Hi Sunstar, I want a bulk / dealer quote for weighing machines')}">Bulk or dealer quote</a><a class="btn btn--line" href="${tel}">Call ${esc(site.phoneDisplay)}</a>` })}
 <section class="band band--flush"><div class="wrap">
   <ul class="ind">
     <li><h3>Made in Bahadurgarh</h3><p>Every Sunstar scale is assembled, tested and calibrated in our own workshop before dispatch.</p></li>

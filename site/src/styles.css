@@ -566,3 +566,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .nap { font-style: normal; line-height: 1.7; color: var(--ink); }
 .nap a { color: var(--link); }
 @media (max-width: 760px) { .seo-cols { grid-template-columns: minmax(0, 1fr); } }
+
+.client-name { font-weight: 800; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: -0.02em; color: #4A4F5C; text-align: center; line-height: 1.1; white-space: nowrap; }
+.logo-wall .client-name { white-space: normal; font-size: 22px; }
+.marq .client-logos li { width: clamp(160px, 15vw, 210px); }
+.client-name { white-space: normal; display: block; max-width: 170px; margin: 0 auto; }

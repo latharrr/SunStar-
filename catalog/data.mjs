@@ -18,7 +18,7 @@ export const site = {
 };
 
 export const categories = [
-  { id: 'platform', name: 'Platform' },
+  { id: 'platform', name: 'Industrial Platform' },
   { id: 'floor', name: 'Floor' },
   { id: 'tabletop', name: 'Tabletop' },
   { id: 'price', name: 'Price computing' },
