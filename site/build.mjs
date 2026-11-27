@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync, rmSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
-import { site, categories, products, faqs } from './src/data.mjs';
+import { site, categories, products, faqs, gallery } from './src/data.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -243,38 +243,35 @@ const hero = prodBy['ss-30'];
 const featured = ['ss-30', 'stainless-tabletop', 'sst-30', 'ss-pf100'].map((s) => prodBy[s]);
 const PLATE_TONE = { 'bg-cream': 'tone-steel', 'bg-soft': 'tone-white', 'bg-charcoal': 'tone-dark', 'bg-orange': 'tone-orange' };
 
-// HOME
+// HOME: logo + details first, then products, then photos (no product in the hero)
 page({
   path: '',
   home: true,
   title: 'Sunstar Systems — Weighing Scales & Weighbridges, Bahadurgarh',
   desc: 'Digital, price computing and platform weighing scales, weighbridges and load cells. Accurate and pocket-friendly. Bahadurgarh, supplied across India since 1996.',
-  preload: `<link rel="preload" as="image" href="assets/products/${hero.img.file}.webp" imagesrcset="assets/products/${hero.img.file}-640.webp 640w, assets/products/${hero.img.file}.webp ${hero.img.w}w" imagesizes="(max-width: 760px) 92vw, 56vw" fetchpriority="high">\n`,
   schema: [faqLd(faqs.common)],
   body: (r) => `
-<section class="hero" aria-labelledby="hero-title">
-  <div class="wrap hero__in">
-    <div class="hero__copy">
-      <h1 id="hero-title">Digital weighing scales, made and serviced in Bahadurgarh since ${site.founded}.</h1>
-      <p class="lede">Tabletop, price computing and platform scales, weighbridges and load cells. Accurate, built to last and fairly priced, with delivery to every state.</p>
-      <div class="actions">
-        <a class="btn" href="${waGeneral}">Get today’s price</a>
-        <a class="btn btn--line" href="${r}products/">See all products</a>
-      </div>
+<section class="intro" aria-labelledby="hero-title">
+  <div class="wrap intro__in">
+    <div class="intro__logo">${LOGO.replace('class="logo-svg"', 'class="logo-svg logo-svg--hero"')}<span>Systems, since ${site.founded}</span></div>
+    <h1 id="hero-title">Digital weighing scales, made and serviced in Bahadurgarh.</h1>
+    <p class="lede">Tabletop, price computing, platform, floor and crane scales, weighbridges and load cells. Accurate, built to last and fairly priced, with delivery to every state.</p>
+    <div class="actions">
+      <a class="btn" href="${waGeneral}">Get today’s price</a>
+      <a class="btn btn--line" href="#products-title">See the products</a>
     </div>
-    <figure class="hero__media">
-      ${shot(r, hero, { sizes: '(max-width: 760px) 92vw, 56vw', lazy: false })}
-      <figcaption class="hero__readout">
-        <span class="disp">${readout('30.000', { label: '30 kg' })}<span class="disp__unit">kg</span></span>
-        <span class="hero__model">${esc(hero.name)}</span>
-      </figcaption>
-    </figure>
+    <dl class="intro__facts">
+      <div><dt>Since</dt><dd>${site.founded}</dd></div>
+      <div><dt>Rating</dt><dd>${site.rating.value} on ${site.rating.source}</dd></div>
+      <div><dt>Supply</dt><dd>All India</dd></div>
+      <div><dt>Shop</dt><dd>Vivekanand Nagar, Bahadurgarh</dd></div>
+    </dl>
   </div>
 </section>
 
-<section class="band band--tight families" aria-labelledby="fam-title">
+<section class="band catalogue" id="catalogue" aria-labelledby="products-title">
   <div class="wrap">
-    <h2 id="fam-title" class="h2">Product families</h2>
+    <div class="band__head"><h2 id="products-title" class="h2">Products</h2><a class="textlink" href="${r}products/">Browse by family</a></div>
     <ul class="fam">
       ${categories.slice(0, 3).map((c) => { const p = prodBy[c.hero]; return `<li><a href="${r}${c.slug}/">
         <div class="fam__img ${PLATE_TONE[c.plate]}">${shot(r, p, { sizes: '(max-width: 760px) 70vw, 24vw' })}</div>
@@ -283,40 +280,22 @@ page({
         <div class="fam__img tone-orange fam__img--type"><span class="disp disp--lg">${readout('60.00', { label: '60 tonnes' })}<span class="disp__unit">t</span></span></div>
         <h3>Weighbridges &amp; load cells</h3><p>Pit, pitless and mobile</p></a></li>
     </ul>
-  </div>
-</section>
-
-${featured.map((p, i) => `<section class="plate ${PLATE_TONE[p.plate]}${i % 2 ? ' plate--flip' : ''}" aria-labelledby="${p.slug}-title">
-  <div class="wrap plate__in">
-    <figure class="plate__media">${shot(r, p, { sizes: '(max-width: 760px) 92vw, 55vw' })}</figure>
-    <div class="plate__text">
-      <p class="plate__cat">${esc(catBy[p.cat].name)}</p>
-      <h2 class="plate__name${p.model ? '' : ' plate__name--long'}" id="${p.slug}-title">${esc(p.model || p.name)}</h2>
-      <p class="plate__desc">${esc(p.line)}</p>
-      ${plateRow(p)}
-      ${specTable(p, { withAsk: false })}
-      <div class="actions"><a class="btn${p.plate === 'bg-orange' ? ' btn--ink' : ''}" href="${waProduct(p.name)}">Get today’s price</a><a class="textlink" href="${r}products/${p.slug}/">Full details</a></div>
-    </div>
-  </div>
-</section>`).join('\n\n')}
-
-<section class="band facts-band" aria-label="About Sunstar">
-  <div class="wrap facts">
-    <p><strong>${year - site.founded} years</strong>Making, supplying and servicing scales from one shop in Vivekanand Nagar, Bahadurgarh.</p>
-    <p><strong>${site.rating.value} out of 5</strong>On ${site.rating.source}, from ${site.rating.count} customer ratings.</p>
-    <p><strong>Every state</strong>Delivery from Delhi NCR to South India, the North East and Jammu &amp; Kashmir.</p>
-  </div>
-</section>
-
-<section class="band catalogue" id="catalogue" aria-labelledby="catalogue-title">
-  <div class="wrap">
-    <div class="band__head"><h2 id="catalogue-title" class="h2">All products</h2><a class="textlink" href="${r}products/">Browse by family</a></div>
+    <h3 class="h3 grid__title">All products</h3>
     <ul class="grid">
       ${products.map((p) => tile(r, p)).join('\n      ')}
     </ul>
     <h3 class="more__title">Also supplied to order</h3>
     <ul class="more">
       ${categories.filter((c) => !c.hero).map((c) => `<li><a href="${r}${c.slug}/">${esc(c.name)}</a></li>`).join('\n      ')}
+    </ul>
+  </div>
+</section>
+
+<section class="band gallery-band" aria-labelledby="photos-title">
+  <div class="wrap">
+    <div class="band__head"><h2 id="photos-title" class="h2">Photos</h2><p class="note">From our shop and studio in Bahadurgarh</p></div>
+    <ul class="gallery">
+      ${gallery.map((g) => `<li><figure><img src="${r}assets/gallery/${g.file}.webp" width="1000" height="1000" alt="${esc(g.caption)}" loading="lazy" decoding="async"><figcaption>${esc(g.caption)}</figcaption></figure></li>`).join('\n      ')}
     </ul>
   </div>
 </section>

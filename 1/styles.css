@@ -405,3 +405,15 @@ main, .footer { position: relative; }
 .logo { align-items: baseline; gap: 8px; }
 .logo__svg { display: block; width: 120px; height: auto; align-self: center; }
 .logo__sub { font-size: 13px; opacity: .7; }
+
+/* Front shows the Sunstar logo, not a product (photo + scan stay in the DOM for the motion script, hidden) */
+.hero__photo, .hero__scan, .hero__scanline, .hero__fig { display: none !important; }
+.hero__brand { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 10%; text-align: center; color: #fff; }
+.hero__logo { width: min(100%, 460px); height: auto; }
+.hero__brand p { color: #9A9DA0; font-size: 15px; max-width: 30ch; }
+/* Photos */
+.photo-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (min-width: 768px) { .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
+.photo-grid figure { margin: 0; }
+.photo-grid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 16px; background: #ECEBE7; }
+.photo-grid figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }

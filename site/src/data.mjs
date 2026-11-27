@@ -213,3 +213,43 @@ export const faqs = {
     ['Do you repair and calibrate scales?', 'Yes. We service, repair and calibrate weighing scales, and supply replacement load cells and indicators.'],
   ],
 };
+
+// Real photos for the home page gallery (assets/gallery/*.webp, 1000x1000)
+export const gallery = [
+  {
+    "file": "shop-platform-1",
+    "caption": "SSP-50 platform scale at our Bahadurgarh shop"
+  },
+  {
+    "file": "shop-platform-2",
+    "caption": "Platform scales ready for dispatch"
+  },
+  {
+    "file": "studio-ss30",
+    "caption": "SS-30 tabletop scale"
+  },
+  {
+    "file": "studio-stainless",
+    "caption": "Stainless steel tabletop scale"
+  },
+  {
+    "file": "studio-sst30",
+    "caption": "SST-30 price computing scale"
+  },
+  {
+    "file": "studio-platform",
+    "caption": "Heavy-duty diamond-plate platform scale"
+  },
+  {
+    "file": "studio-electronic",
+    "caption": "Electronic tabletop scale"
+  },
+  {
+    "file": "studio-steelpan",
+    "caption": "Steel-pan digital scale"
+  },
+  {
+    "file": "studio-compact",
+    "caption": "Compact digital scale"
+  }
+];

@@ -89,3 +89,43 @@ export const products = [
     capacity: '1000 kg / 2000 kg', accuracy: '± 100 g',
     features: ['Animal hold function', 'Four-post containment frame', 'Anti-slip platform'] },
 ];
+
+// Real photos (assets/gallery/*.webp, 1000x1000)
+export const gallery = [
+  {
+    "file": "shop-platform-1",
+    "caption": "SSP-50 platform scale at our Bahadurgarh shop"
+  },
+  {
+    "file": "shop-platform-2",
+    "caption": "Platform scales ready for dispatch"
+  },
+  {
+    "file": "studio-ss30",
+    "caption": "SS-30 tabletop scale"
+  },
+  {
+    "file": "studio-stainless",
+    "caption": "Stainless steel tabletop scale"
+  },
+  {
+    "file": "studio-sst30",
+    "caption": "SST-30 price computing scale"
+  },
+  {
+    "file": "studio-platform",
+    "caption": "Heavy-duty diamond-plate platform scale"
+  },
+  {
+    "file": "studio-electronic",
+    "caption": "Electronic tabletop scale"
+  },
+  {
+    "file": "studio-steelpan",
+    "caption": "Steel-pan digital scale"
+  },
+  {
+    "file": "studio-compact",
+    "caption": "Compact digital scale"
+  }
+];

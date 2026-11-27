@@ -1,6 +1,6 @@
 // node build.mjs -> writes index.html (static, no framework). Layout follows the client's base44 catalog.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { site, categories, products } from './data.mjs';
+import { site, categories, products, gallery } from './data.mjs';
 
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const wa = (t) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t)}`;
@@ -134,6 +134,17 @@ const html = `<!doctype html>
       </div>
       <a class="btn btn--blue" href="${wa('Hi Sunstar, I need a scale with this capacity / platform size: ')}">${icon.wa}Tell us your requirement</a>
     </aside>
+  </div>
+</section>
+
+<section class="photos" aria-labelledby="photos-title">
+  <div class="wrap">
+    <p class="eyebrow">Gallery</p>
+    <h2 id="photos-title">Photos</h2>
+    <p class="range__lede">From our shop and studio in Bahadurgarh.</p>
+    <ul class="photo-grid">
+      ${gallery.map((g) => `<li><figure><img src="assets/gallery/${g.file}.webp" width="1000" height="1000" alt="${esc(g.caption)}" loading="lazy" decoding="async"><figcaption>${esc(g.caption)}</figcaption></figure></li>`).join('')}
+    </ul>
   </div>
 </section>
 
