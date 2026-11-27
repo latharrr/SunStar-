@@ -443,3 +443,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .hero-c__btn { top: auto; bottom: 10px; translate: none; width: 40px; height: 40px; font-size: 24px; }
 }
 @media (max-width: 760px) { .intro-band .intro { padding-left: 0; padding-right: 0; } }
+
+/* ---------- Search ---------- */
+.site-header .wrap { gap: 12px; }
+.nav { margin-left: auto; }
+.search-btn { order: 3; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--hair); color: var(--ink); }
+.search-btn:hover, .search-btn[aria-expanded="true"] { background: var(--navy); color: #fff; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.search-panel { border-top: 1px solid var(--hair); background: var(--card); padding: 16px 0 20px; box-shadow: 0 16px 30px rgba(20, 30, 68, .08); }
+.search-panel .wrap { display: block; height: auto; }
+.search-form { display: flex; gap: 10px; }
+.search-form input { flex: 1; font: 400 17px/1.3 var(--font); color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 999px; padding: 11px 18px; }
+.search-form input:focus { outline: none; border-color: var(--link); box-shadow: 0 0 0 4px rgba(30, 75, 184, .15); }
+.search-form .btn { min-height: 44px; }
+.search-results { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 2px; max-height: 60vh; overflow: auto; }
+.search-results a { display: flex; justify-content: space-between; gap: 16px; padding: 10px 14px; border-radius: 10px; text-decoration: none; color: var(--ink); font-size: 15px; }
+.search-results a:hover, .search-results a:focus-visible { background: var(--navy-soft); }
+.search-results small { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.search-results .empty { padding: 10px 14px; color: var(--muted); font-size: 15px; }
+@media (max-width: 760px) { .search-btn { order: 0; margin-left: auto; } .menu-btn { order: 1; } }
+@media (max-width: 760px) { .search-results small { display: none; } .search-btn { width: 38px; height: 38px; } }

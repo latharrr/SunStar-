@@ -192,10 +192,10 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
 </head>
 <body${home ? ' class="home"' : ''}>
 <a class="skip" href="#main">Skip to content</a>
-<div class="utility"><div class="wrap utility__in"><p>Weighing scale manufacturer since ${site.founded}, Bahadurgarh, Haryana</p><ul><li><a href="${r}pan-india-supply/">Dealers in Jammu and Rajasthan</a></li><li><a href="${r}contact/">Contact</a></li></ul></div></div>
 <header class="site-header">
   <div class="wrap">
     <a class="wordmark" href="${r}" aria-label="${esc(site.name)}, home"><img class="seal" src="${r}assets/sunstar-seal.webp" alt="" width="34" height="34"><span class="wordmark__text"><span class="wordmark__name">Sunstar Systems</span><span class="wordmark__tag">Weighing Scale Manufacturer</span></span></a>
+    <button class="search-btn" type="button" aria-expanded="false" aria-controls="site-search" aria-label="Search products"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <ul>
@@ -203,6 +203,20 @@ ${preload}<link rel="stylesheet" href="${r}styles.css">
       </ul>
       <a class="btn btn--sm" href="${waGeneral}">WhatsApp</a>
     </nav>
+  </div>
+  <div class="search-panel" id="site-search" hidden>
+    <div class="wrap">
+      <form class="search-form" role="search" action="${r}products/">
+        <label class="sr-only" for="q">Search scales</label>
+        <input id="q" name="q" type="search" placeholder="Search scales: tabletop, 30 kg, crane, SS-PF100" autocomplete="off">
+        <button class="btn btn--sm" type="submit">Search</button>
+      </form>
+      <ul class="search-results" aria-live="polite"></ul>
+      <script type="application/json" id="search-data">${JSON.stringify([
+        ...products.map((p) => ({ t: p.name, s: categories.find((c) => c.slug === p.cat).name, u: `${r}products/${p.slug}/`, k: [p.model, p.line, ...p.specs.map((x) => x[1])].filter(Boolean).join(' ') })),
+        ...categories.map((c) => ({ t: c.name, s: 'Category', u: `${r}${c.slug}/`, k: c.intro || '' })),
+      ]).replace(/</g, '\\u003c')}</script>
+    </div>
   </div>
 </header>
 ${crumbs ? crumbsHtml(r, crumbs) : ''}

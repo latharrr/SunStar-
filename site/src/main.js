@@ -52,3 +52,29 @@ if (form) form.addEventListener('submit', (e) => {
   function stop() { clearInterval(timer); timer = null; }
   ['pointerdown', 'wheel', 'touchstart'].forEach((ev) => track.addEventListener(ev, stop, { passive: true }));
 })();
+
+// Site search: toggles a panel under the header and filters an inline index of products and categories.
+(() => {
+  const btn = document.querySelector('.search-btn');
+  const panel = document.getElementById('site-search');
+  if (!btn || !panel) return;
+  const input = panel.querySelector('input');
+  const list = panel.querySelector('.search-results');
+  const data = JSON.parse(document.getElementById('search-data').textContent);
+  const norm = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, ' ');
+  const index = data.map((d) => ({ ...d, h: norm(`${d.t} ${d.s} ${d.k}`), hc: norm(`${d.t} ${d.k}`).replace(/ /g, '') }));
+  const open = (v) => { panel.hidden = !v; btn.setAttribute('aria-expanded', String(v)); if (v) input.focus(); };
+  btn.addEventListener('click', () => open(panel.hidden));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { open(false); btn.focus(); } });
+  const render = () => {
+    const words = norm(input.value).trim().split(' ').filter(Boolean);
+    if (!words.length) { list.innerHTML = ''; return; }
+    const has = (d, w) => (/\d/.test(w) ? ` ${d.h} `.includes(` ${w} `) || d.hc.includes(w) && /[a-z]/.test(w) : d.h.includes(w) || d.hc.includes(w));
+    const hits = index.filter((d) => words.every((w) => has(d, w))).slice(0, 8);
+    list.innerHTML = hits.length
+      ? hits.map((d) => `<li><a href="${d.u}">${d.t.replace(/</g, '&lt;')}<small>${d.s}</small></a></li>`).join('')
+      : '<li class="empty">No scale found. Ask us on WhatsApp and we will tell you which model fits.</li>';
+  };
+  input.addEventListener('input', render);
+  panel.querySelector('form').addEventListener('submit', (e) => { const first = list.querySelector('a'); if (first) { e.preventDefault(); location.href = first.href; } });
+})();
