@@ -254,6 +254,7 @@ ${body(r)}
   <div class="wrap footer__base"><span>GSTIN ${esc(site.gstin)}</span><span>© ${site.founded}–${year} ${esc(site.name)}</span></div>
 </footer>
 <div class="bot" data-bot data-wa="${site.whatsappNumber}" data-tel="${tel}"${product ? ` data-product="${esc(product.name)}" data-product-cat="${product.cat}"` : ''}>
+  <div class="bot__nudge" hidden><button class="bot__nudge-open" type="button"><img src="${r}assets/sunstar-seal.webp" alt="" width="32" height="32"><span><strong>How may I help you?</strong>Get today’s price in a few taps.</span></button><button class="bot__nudge-x" type="button" aria-label="Dismiss">×</button></div>
   <button class="bot__launch" type="button" aria-expanded="false" aria-controls="bot-panel"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-linecap="round" stroke-width="2.6"/></svg><span>Ask Sunstar</span></button>
   <section class="bot__panel" id="bot-panel" role="dialog" aria-label="Sunstar assistant" hidden>
     <header class="bot__head"><img src="${r}assets/sunstar-seal.webp" alt="" width="36" height="36"><div><strong>Sunstar assistant</strong><span>Replies on WhatsApp, usually the same day</span></div><button class="bot__close" type="button" aria-label="Close chat">×</button></header>

@@ -520,3 +520,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .range__table th, .range__table td { width: auto; white-space: nowrap; }
 .range__table tbody th { width: 120px; }
 .bot__form[hidden] { display: none; }
+.bot__nudge { position: absolute; right: 0; bottom: calc(100% + 12px); width: max-content; max-width: min(300px, calc(100vw - 24px)); display: flex; align-items: flex-start; background: var(--card); border-radius: 16px 16px 4px 16px; box-shadow: 0 14px 36px rgba(20, 30, 68, .25); animation: nudgeIn .35s ease-out; }
+.bot__nudge[hidden] { display: none; }
+.bot__nudge-open { display: flex; gap: 10px; align-items: center; text-align: left; border: 0; background: none; padding: 12px 4px 12px 12px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+.bot__nudge-open img { width: 32px; height: 32px; flex: none; }
+.bot__nudge-open strong { display: block; color: var(--ink); font-size: 15px; }
+.bot__nudge-x { border: 0; background: none; color: var(--muted); font-size: 20px; line-height: 1; padding: 8px 10px; }
+@keyframes nudgeIn { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .bot__nudge { animation: none; } }

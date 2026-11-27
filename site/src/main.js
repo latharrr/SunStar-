@@ -182,6 +182,15 @@ if (form) form.addEventListener('submit', (e) => {
     if (!v) launch.focus();
   };
   launch.addEventListener('click', () => open(true));
+  // "How may I help you?" nudge: shows once per visit after a few seconds, never while the chat is open.
+  const nudge = root.querySelector('.bot__nudge');
+  const seen = () => { try { return sessionStorage.getItem('ss-nudge') === '1'; } catch (e) { return false; } };
+  const markSeen = () => { try { sessionStorage.setItem('ss-nudge', '1'); } catch (e) { /* storage blocked */ } };
+  const hideNudge = () => { nudge.hidden = true; markSeen(); };
+  if (nudge && !seen()) setTimeout(() => { if (panel.hidden) { nudge.hidden = false; } }, 4000);
+  nudge?.querySelector('.bot__nudge-open').addEventListener('click', () => { hideNudge(); open(true); });
+  nudge?.querySelector('.bot__nudge-x').addEventListener('click', hideNudge);
+  launch.addEventListener('click', () => { if (nudge) hideNudge(); });
   root.querySelector('.bot__close').addEventListener('click', () => open(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) open(false); });
   form.addEventListener('submit', (e) => { e.preventDefault(); answer(input.value); });
